@@ -129,7 +129,7 @@ namespace CollabClient
             cb.FlatStyle = FlatStyle.Popup;
             cb.DropDownStyle = ComboBoxStyle.DropDownList;
 			cb.Size = new System.Drawing.Size(size.Width - 79, 27);
-            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5", "DarkOK Vista","DarkOK X-Ray Man","2pacVM XP Reborn","2pacVM UHU Linux"});
+            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5","DarkOK Vista","DarkOK X-Ray Man","FSP TempleOS"});
             cb.SelectedIndexChanged += (s, e) => { switch (cb.SelectedIndex+1) {
                     case 1: textBox.Text = "computernewb.com:6004"; textBox2.Text = "vm1"; break;
                     case 2: textBox.Text = "computernewb.com:6005"; textBox2.Text = "vm2"; break;
@@ -138,8 +138,7 @@ namespace CollabClient
                     case 5: textBox.Text = "computernewb.com:6008"; textBox2.Text = "vm5"; break;
                     case 6: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "pissta"; break;
                     case 7: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "xrayman"; break;
-					case 8: textBox.Text = "darkok.xyz:6004"; textBox2.Text = "reborn"; break;
-					case 9: textBox.Text = "darkok.xyz:6004"; textBox2.Text = "uhu"; break;
+					case 8: textBox.Text = "home.funshitposting.xyz:6004"; textBox2.Text = "templeos"; break;
                 }
             };
             inputBox.Controls.Add(cb);
