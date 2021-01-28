@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
 			this.KeyPreview = true;
-			this.Icon = new System.Drawing.Icon("cvm.ico");
+			this.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();

@@ -63,6 +63,7 @@ namespace CollabClient
             okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             okButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             okButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            //okButton.ForeColor = System.Drawing.Color.White;
 			okButton.Name = "okButton";
 			okButton.Size = new System.Drawing.Size(75, 23);
 			okButton.Text = "&Connect";
@@ -73,6 +74,7 @@ namespace CollabClient
 			Button cancelButton = new Button();
 			cancelButton.BackColor = System.Drawing.Color.Gray;
             cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            //cancelButton.ForeColor = System.Drawing.Color.White;
             cancelButton.ForeColor = System.Drawing.SystemColors.ControlText;
 			cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			cancelButton.Name = "cancelButton";
@@ -129,7 +131,7 @@ namespace CollabClient
             cb.FlatStyle = FlatStyle.Popup;
             cb.DropDownStyle = ComboBoxStyle.DropDownList;
 			cb.Size = new System.Drawing.Size(size.Width - 79, 27);
-            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5", "DarkOK Vista","DarkOK X-Ray Man","2pacVM XP Reborn","2pacVM UHU Linux"});
+            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5", "DarkOK Vista","DarkOK X-Ray Man"});
             cb.SelectedIndexChanged += (s, e) => { switch (cb.SelectedIndex+1) {
                     case 1: textBox.Text = "computernewb.com:6004"; textBox2.Text = "vm1"; break;
                     case 2: textBox.Text = "computernewb.com:6005"; textBox2.Text = "vm2"; break;
@@ -138,8 +140,6 @@ namespace CollabClient
                     case 5: textBox.Text = "computernewb.com:6008"; textBox2.Text = "vm5"; break;
                     case 6: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "pissta"; break;
                     case 7: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "xrayman"; break;
-					case 8: textBox.Text = "darkok.xyz:6004"; textBox2.Text = "reborn"; break;
-					case 9: textBox.Text = "darkok.xyz:6004"; textBox2.Text = "uhu"; break;
                 }
             };
             inputBox.Controls.Add(cb);
@@ -414,7 +414,6 @@ namespace CollabClient
                     }
                 case "list":
                     {
-						//uhh... implement something with dialog box idk
                         // ¿¿¿
                         break;
                     }
@@ -462,10 +461,10 @@ namespace CollabClient
 						//int screenx = Int32.Parse(args[2]);
 						//int screeny = Int32.Parse(args[3]);
 						if (args[1] == "0") {
-/* 	rem this when safe	pictureBox1.Image.Dispose();
+					    pictureBox1.Image.Dispose();
 						g.Dispose();
 					    pictureBox1.Image = new Bitmap(Convert.ToInt32(screenx), Convert.ToInt32(screeny)); // trolled not making a new bitmapobject :trollface:, also mdkck10
-						g = Graphics.FromImage(pictureBox1.Image); */
+						g = Graphics.FromImage(pictureBox1.Image);
 						scalex = screenx / pictureBox1.Width;
 						scaley = screeny / pictureBox1.Height;
 						pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -497,6 +496,7 @@ namespace CollabClient
                         }
                         a = a.Substring(0, a.Length - 3);
                         Console.WriteLine(a);
+                        //rem ass
                         if (args[1] == "0")
                         {
                             username = args[3];
@@ -567,7 +567,6 @@ namespace CollabClient
         private void Socket_OnOpen(object sender, EventArgs e)
         {
             Console.WriteLine("Connected to "+vmip+"#"+vmname);
-			Console.Title="CollabVM .NET Client - Console ["+vmname+"]";
             Send("rename", vmusername);
             Send("connect", vmname);
             //Send("list");
@@ -855,7 +854,7 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
 
         ushort handleKey(KeyEventArgs e)
         {
-            //Console.WriteLine(e.KeyCode);
+            Console.WriteLine(e.KeyCode);
             CollabAPI.X11KeyCode k;
             //ree asss
             if (e.KeyValue < 256) 
@@ -878,33 +877,21 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
                 case Keys.Alt:k = CollabAPI.X11KeyCode.XK_Alt_L;break;
                 case Keys.LWin:k = CollabAPI.X11KeyCode.XK_Meta_L;break;
                 case Keys.RWin:k = CollabAPI.X11KeyCode.XK_Meta_R;break;
+//                case Keys.Return:k = CollabAPI.X11KeyCode.XK_Return;break;
+                case Keys.Return:k = CollabAPI.X11KeyCode.XK_Return;break;
                 default: k = CollabAPI.X11KeyConverter.UnicodeToX11Key((char)e.KeyValue);break;
             }
             if (k == 0) { Console.Error.WriteLine($"can not find key for: {e.KeyCode}"); return 0; }
-            //Console.WriteLine((ushort)k);
+            Console.WriteLine((ushort)k);
             return (ushort)k;
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {//https://github.com/glyptodon/guacamole-client/blob/master/guacamole-common-js/src/main/webapp/modules/Keyboard.js //todo, lol
             if (!pbfocus) return;
+            Console.WriteLine("up");
             var k = handleKey(e);
-			Console.WriteLine("up: "+k+" | "+e.KeyCode);
             if (k == 0) return;
-            if (k == 8) k = 0xff08;
-            if (k == 13) k = 0xff0d;
-            if (k == 188) k = 0x002c;
-            if (k == 190) k = 0x002e;
-            if (k == 191) k = 0x003f;
-            if (k == 252) k = 0x005c;
-            if (k == 189) k = 0x002d;
-            if (k == 187) k = 0x003d;
-            if (k == 251) k = 0x005b;
-            if (k == 253) k = 0x005d;
-            if (k == 186) k = 0x003b;
-            if (k == 244) k = 0x0027;
-            if (k == 254) k = 0x0023;
-            if (k == 223) k = 0x0060;
             Send("key", k, 0);
         }
 
@@ -916,23 +903,9 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (!pbfocus) return;
+            Console.WriteLine("down");
             var k = handleKey(e);
-            Console.WriteLine("down: "+k+" | "+e.KeyCode);
             if (k == 0) return;
-            if (k == 8) k = 0xff08;
-            if (k == 13) k = 0xff0d;
-            if (k == 188) k = 0x002c;
-            if (k == 190) k = 0x002e;
-            if (k == 191) k = 0x003f;
-            if (k == 252) k = 0x005c;
-            if (k == 189) k = 0x002d;
-            if (k == 187) k = 0x003d;
-            if (k == 251) k = 0x005b;
-            if (k == 253) k = 0x005d;
-            if (k == 186) k = 0x003b;
-            if (k == 244) k = 0x0027;
-            if (k == 254) k = 0x0023;
-            if (k == 223) k = 0x0060;
             Send("key", k, 1);
         }
     }
