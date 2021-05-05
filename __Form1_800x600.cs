@@ -205,9 +205,9 @@ namespace CollabClient
 		double screeny = 768d;
         private void Form1_Load(object sender, EventArgs e)
         {
-			string dialogip="home.darkok.xyz:6004";
-			string dialognode="pissta";
-			string dialogusername = "works on my machine";
+			string dialogip="IP here, node name ->";
+			string dialognode="here";
+			string dialogusername = "collabvm-csharp-user";
 			if (ShowConnectDialog(ref dialogip, ref dialognode, ref dialogusername) != DialogResult.OK) { Close();return; };
 			vmip = dialogip;
 			vmname = dialognode;
