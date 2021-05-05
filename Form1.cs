@@ -13,7 +13,6 @@ using System.Timers;
 using Timer = System.Timers.Timer;
 using System.Net;
 using System.Net.Sockets;
-
 namespace CollabClient
 {
     public partial class Form1 : Form
@@ -22,7 +21,7 @@ namespace CollabClient
 		{
 			System.Drawing.Size size = new System.Drawing.Size(220, 160);
 			Form inputBox = new Form();
-			inputBox.Icon = new System.Drawing.Icon("cvm.ico");
+			inputBox.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
 			inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			inputBox.ClientSize = size;
 			inputBox.Text = "Connect to...";
@@ -129,16 +128,19 @@ namespace CollabClient
             cb.FlatStyle = FlatStyle.Popup;
             cb.DropDownStyle = ComboBoxStyle.DropDownList;
 			cb.Size = new System.Drawing.Size(size.Width - 79, 27);
-            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5","DarkOK Vista","DarkOK X-Ray Man","FSP TempleOS"});
+            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5","Computernewb VM6","Computernewb VM0","DarkOK Vista","DG Geek XP","DG Ubuntu","DG 7989 VM"});
             cb.SelectedIndexChanged += (s, e) => { switch (cb.SelectedIndex+1) {
                     case 1: textBox.Text = "computernewb.com:6004"; textBox2.Text = "vm1"; break;
                     case 2: textBox.Text = "computernewb.com:6005"; textBox2.Text = "vm2"; break;
                     case 3: textBox.Text = "computernewb.com:6006"; textBox2.Text = "vm3"; break;
                     case 4: textBox.Text = "computernewb.com:6007"; textBox2.Text = "vm4"; break;
                     case 5: textBox.Text = "computernewb.com:6008"; textBox2.Text = "vm5"; break;
-                    case 6: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "pissta"; break;
-                    case 7: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "xrayman"; break;
-					case 8: textBox.Text = "home.funshitposting.xyz:6004"; textBox2.Text = "templeos"; break;
+                    case 6: textBox.Text = "computernewb.com:6009"; textBox2.Text = "vm6"; break;
+                    case 7: textBox.Text = "computernewb.com:7000"; textBox2.Text = "vm0"; break;
+                    case 8: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "pissta"; break;
+					case 9: textBox.Text = "173.252.197.90:6004"; textBox2.Text = "gxp4"; break;
+					case 10: textBox.Text = "173.252.197.90:6004"; textBox2.Text = "ubuntu"; break;
+					case 11: textBox.Text = "173.252.197.90:6004"; textBox2.Text = "7989vm"; break;
                 }
             };
             inputBox.Controls.Add(cb);
@@ -221,6 +223,7 @@ namespace CollabClient
             g = Graphics.FromImage(pictureBox1.Image);
 			this.Text = ("CollabVM .NET Client: "+vmip+"#"+vmname);
             socket = new WebSocket("ws://" + vmip, "guacamole");
+			socket.Origin = "http://" + vmip.Split(':')[0];
             socket.OnClose += Socket_OnClose;
             socket.OnOpen += Socket_OnOpen;
             socket.OnMessage += Socket_OnMessage;
@@ -325,10 +328,25 @@ namespace CollabClient
                         {
                             if (args[i] == "" && args[i + 1].StartsWith("You have been muted"))
                             {
+								if (args[i + 1] == ("You have been muted.")) {
+								Invoke(() => textBox1.Enabled = false);
+								return;
+								}
                                 Invoke(() => textBox1.Enabled = false);
                                 muteTimer.Interval = int.Parse(args[i + 1].Split(' ').Skip(5).Take(1).ToArray()[0]) * 1000;
                                 muteTimer.Start();
                             }
+							else if (
+							args[1] == "" 
+							&& !args[i + 1].StartsWith("You have been muted") 
+							&& !args[i + 1].StartsWith("The vote to") 
+							&& !args[i + 1].EndsWith("voted yes.") 
+							&& !args[i + 1].EndsWith("voted no.") 
+							&& !args[i + 1].EndsWith("started a vote to reset the VM.")
+							)
+							{
+								MessageBox.Show(args[i + 1],"Message of the Day", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							}
                             Invoke(() =>
                             {
                                 LogChat(args[i] + (args[i] != "" ? "▸ " : "") + args[i + 1]);
@@ -415,6 +433,15 @@ namespace CollabClient
                     {
 						//uhh... implement something with dialog box idk
                         // ¿¿¿
+/*                         string a = "";
+						
+                        foreach (var val in args)
+                        {
+                            a += val + " | ";
+                        }
+                        a = a.Substring(0, a.Length - 3);
+                        Console.WriteLine(a); */
+						Console.WriteLine("list: "+args[1]+" | "+args[2]);
                         break;
                     }
                 case "adduser":
@@ -432,7 +459,11 @@ namespace CollabClient
                         }
                         if (args[3] == "2")
                         {
-                            LogChat($">{args[2]} authenticated as adminstrator.");
+                            LogChat($">{args[2]} authenticated as a adminstrator.");
+                        }
+						if (args[3] == "3")
+                        {
+                            LogChat($">{args[2]} authenticated as a moderator.");
                         }
                         Invoke(() => label1.Text = "Users Online: " + users.Count);
 
@@ -567,6 +598,7 @@ namespace CollabClient
         {
             Console.WriteLine("Connected to "+vmip+"#"+vmname);
 			Console.Title="CollabVM .NET Client - Console ["+vmname+"]";
+			//Send("list"); //lag
             Send("rename", vmusername);
             Send("connect", vmname);
             //Send("list");
@@ -638,9 +670,28 @@ namespace CollabClient
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true;
-                Send("chat", textBox1.Text);
-                textBox1.Text = "";
+				string BoxText = textBox1.Text;
+				e.SuppressKeyPress = true;
+				textBox1.Text = "";
+				switch (BoxText)
+				{
+					case "!vote yes": {
+						Send("vote","1");
+						break;
+					}
+					case "!vote no": {
+						Send("vote","0");
+						break;
+					}
+					case "!debug list": {
+						Send("list");
+						break;
+					}
+					default: {
+						Send("chat", BoxText);
+						break;
+					}
+				}
             }
         }
 
@@ -650,11 +701,11 @@ namespace CollabClient
         //Point topleftpicboxpos = new Point(0, 0);
         private void pictureBox1_SizeChanged(object _, EventArgs __)
         {
-			Console.WriteLine("size: "+screenx+"x"+screeny);
+			Console.WriteLine("[C] size: "+screenx+"x"+screeny);
             //topleftpicboxpos = new Point(0, 0);
             scalex = screenx / pictureBox1.Width;
             scaley = screeny / pictureBox1.Height;
-			Console.WriteLine("mousescale: "+scalex+","+scaley);
+			Console.WriteLine("[C] mousescale: "+scalex+","+scaley);
             //scalex = pictureBox1.Width / 1024d;
             //scaley = pictureBox1.Height / 768d;
             //scale = Math.Min(1024d / pictureBox1.Width, 768d / pictureBox1.Height);
@@ -892,6 +943,7 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
             if (k == 0) return;
             if (k == 8) k = 0xff08;
             if (k == 13) k = 0xff0d;
+            if (k == 16) k = 0xffe1;
             if (k == 188) k = 0x002c;
             if (k == 190) k = 0x002e;
             if (k == 191) k = 0x003f;
@@ -904,6 +956,10 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
             if (k == 244) k = 0x0027;
             if (k == 254) k = 0x0023;
             if (k == 223) k = 0x0060;
+            if (k == 222) k = 0x007e;
+            if (k == 192) k = 0x0022; // should be 0x40, Comm. At symbol, but because US treats shift-2 as @ and not ", we have to do hax
+            if (k == 219) k = 0x007b;
+            if (k == 221) k = 0x007d;
             Send("key", k, 0);
         }
 
@@ -920,6 +976,7 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
             if (k == 0) return;
             if (k == 8) k = 0xff08;
             if (k == 13) k = 0xff0d;
+            if (k == 16) k = 0xffe1;
             if (k == 188) k = 0x002c;
             if (k == 190) k = 0x002e;
             if (k == 191) k = 0x003f;
@@ -932,6 +989,10 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
             if (k == 244) k = 0x0027;
             if (k == 254) k = 0x0023;
             if (k == 223) k = 0x0060;
+            if (k == 222) k = 0x007e;
+            if (k == 192) k = 0x0022; // should be 0x40, Comm. At symbol, but because US treats shift-2 as @ and not ", we have to do hax
+            if (k == 219) k = 0x007b;
+            if (k == 221) k = 0x007d;
             Send("key", k, 1);
         }
     }
