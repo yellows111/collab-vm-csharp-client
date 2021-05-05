@@ -164,7 +164,32 @@ namespace CollabClient
 			return result;
 			
 		}
-        public Form1()
+        public static DialogResult ViewHTML(ref string htmlText)
+		{
+			System.Drawing.Size size = new System.Drawing.Size(600, 400);
+			Form htmlView = new Form();
+			htmlView.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			htmlView.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			htmlView.ClientSize = size;
+			htmlView.Text = "Message of the Day";
+			htmlView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			// goes here
+			
+			System.Windows.Forms.WebBrowser htmlBox = new WebBrowser();
+			htmlBox.Size = new System.Drawing.Size(size.Width - 4, 370);
+			htmlBox.Location = new System.Drawing.Point(2, 2);	
+			htmlBox.BackColor = System.Drawing.Color.Gray;
+			htmlBox.ForeColor = System.Drawing.SystemColors.ControlText;
+			htmlBox.ScrollBarsEnabled = false;
+			htmlBox.DocumentText = htmlText + "<style>body{background-color:#404040;color:white</style>"; 
+			
+			htmlView.Controls.Add(htmlBox);
+			
+			// exits here
+			DialogResult result = htmlView.ShowDialog();
+			return result;
+		}			
+		public Form1()
         {
             InitializeComponent();
 			Console.Title="CollabVM .NET Client - Console";
@@ -345,7 +370,8 @@ namespace CollabClient
 							&& !args[i + 1].EndsWith("started a vote to reset the VM.")
 							)
 							{
-								MessageBox.Show(args[i + 1],"Message of the Day", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								string html = args[i + 1];
+								ViewHTML(ref html);
 							}
                             Invoke(() =>
                             {
@@ -685,6 +711,11 @@ namespace CollabClient
 					}
 					case "!debug list": {
 						Send("list");
+						break;
+					}
+					case "!debug motd": {
+						string htmltest = "<h1>Please Wait...</h1>";
+						ViewHTML(ref htmltest);
 						break;
 					}
 					default: {
