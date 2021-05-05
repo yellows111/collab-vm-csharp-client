@@ -128,16 +128,19 @@ namespace CollabClient
             cb.FlatStyle = FlatStyle.Popup;
             cb.DropDownStyle = ComboBoxStyle.DropDownList;
 			cb.Size = new System.Drawing.Size(size.Width - 79, 27);
-            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5","DarkOK Vista","DarkOK X-Ray Man","FSP TempleOS"});
+            cb.Items.AddRange(new[] {"Computernewb VM1","Computernewb VM2","Computernewb VM3","Computernewb VM4","Computernewb VM5","Computernewb VM6","Computernewb VM0","DarkOK Vista","DG Geek XP","DG Ubuntu","DG 7989 VM"});
             cb.SelectedIndexChanged += (s, e) => { switch (cb.SelectedIndex+1) {
                     case 1: textBox.Text = "computernewb.com:6004"; textBox2.Text = "vm1"; break;
                     case 2: textBox.Text = "computernewb.com:6005"; textBox2.Text = "vm2"; break;
                     case 3: textBox.Text = "computernewb.com:6006"; textBox2.Text = "vm3"; break;
                     case 4: textBox.Text = "computernewb.com:6007"; textBox2.Text = "vm4"; break;
                     case 5: textBox.Text = "computernewb.com:6008"; textBox2.Text = "vm5"; break;
-                    case 6: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "pissta"; break;
-                    case 7: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "xrayman"; break;
-					case 8: textBox.Text = "home.funshitposting.xyz:6004"; textBox2.Text = "templeos"; break;
+                    case 6: textBox.Text = "computernewb.com:6009"; textBox2.Text = "vm6"; break;
+                    case 7: textBox.Text = "computernewb.com:7000"; textBox2.Text = "vm0"; break;
+                    case 8: textBox.Text = "home.darkok.xyz:6004"; textBox2.Text = "pissta"; break;
+					case 9: textBox.Text = "173.252.197.90:6004"; textBox2.Text = "gxp4"; break;
+					case 10: textBox.Text = "173.252.197.90:6004"; textBox2.Text = "ubuntu"; break;
+					case 11: textBox.Text = "173.252.197.90:6004"; textBox2.Text = "7989vm"; break;
                 }
             };
             inputBox.Controls.Add(cb);
@@ -221,6 +224,7 @@ namespace CollabClient
             g = Graphics.FromImage(pictureBox1.Image);
 			this.Text = ("CollabVM .NET Client: "+vmip+"#"+vmname);
             socket = new WebSocket("ws://" + vmip, "guacamole");
+			socket.Origin = "http://" + vmip.Split(':')[0];
             socket.OnClose += Socket_OnClose;
             socket.OnOpen += Socket_OnOpen;
             socket.OnMessage += Socket_OnMessage;
@@ -333,6 +337,17 @@ namespace CollabClient
                                 muteTimer.Interval = int.Parse(args[i + 1].Split(' ').Skip(5).Take(1).ToArray()[0]) * 1000;
                                 muteTimer.Start();
                             }
+							else if (
+							args[1] == "" 
+							&& !args[i + 1].StartsWith("You have been muted") 
+							&& !args[i + 1].StartsWith("The vote to") 
+							&& !args[i + 1].EndsWith("voted yes.") 
+							&& !args[i + 1].EndsWith("voted no.") 
+							&& !args[i + 1].EndsWith("started a vote to reset the VM.")
+							)
+							{
+								MessageBox.Show(args[i + 1],"Message of the Day", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							}
                             Invoke(() =>
                             {
                                 LogChat(args[i] + (args[i] != "" ? "▸ " : "") + args[i + 1]);
@@ -584,7 +599,7 @@ namespace CollabClient
         {
             Console.WriteLine("Connected to "+vmip+"#"+vmname);
 			Console.Title="CollabVM .NET Client - Console ["+vmname+"]";
-			Send("list"); //lag
+			//Send("list"); //lag
             Send("rename", vmusername);
             Send("connect", vmname);
             //Send("list");
@@ -656,9 +671,28 @@ namespace CollabClient
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true;
-                Send("chat", textBox1.Text);
-                textBox1.Text = "";
+				string BoxText = textBox1.Text;
+				e.SuppressKeyPress = true;
+				textBox1.Text = "";
+				switch (BoxText)
+				{
+					case "!vote yes": {
+						Send("vote","1");
+						break;
+					}
+					case "!vote no": {
+						Send("vote","0");
+						break;
+					}
+					case "!debug list": {
+						Send("list");
+						break;
+					}
+					default: {
+						Send("chat", BoxText);
+						break;
+					}
+				}
             }
         }
 
@@ -668,11 +702,11 @@ namespace CollabClient
         //Point topleftpicboxpos = new Point(0, 0);
         private void pictureBox1_SizeChanged(object _, EventArgs __)
         {
-			Console.WriteLine("size: "+screenx+"x"+screeny);
+			Console.WriteLine("[C] size: "+screenx+"x"+screeny);
             //topleftpicboxpos = new Point(0, 0);
             scalex = screenx / pictureBox1.Width;
             scaley = screeny / pictureBox1.Height;
-			Console.WriteLine("mousescale: "+scalex+","+scaley);
+			Console.WriteLine("[C] mousescale: "+scalex+","+scaley);
             //scalex = pictureBox1.Width / 1024d;
             //scaley = pictureBox1.Height / 768d;
             //scale = Math.Min(1024d / pictureBox1.Width, 768d / pictureBox1.Height);
