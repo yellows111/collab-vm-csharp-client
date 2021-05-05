@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CollabClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CollabVM .NET (C#, .NET FW 4.7.1) Client")]
+[assembly: AssemblyDescription("CollabVM .NET (C#) Client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Computernewb Software USA")]
 [assembly: AssemblyProduct("CollabClient")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © yellows111, hapaxant 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
