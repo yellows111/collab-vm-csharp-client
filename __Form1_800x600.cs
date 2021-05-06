@@ -328,6 +328,8 @@ namespace CollabClient
                         a = a.Substring(0, a.Length - 3);
                         Console.WriteLine(a); */
                     Console.WriteLine("list: " + args[1] + " | " + args[2]);
+                    string html = args[2];
+                    Invoke((MethodInvoker) delegate { ViewHTML(ref html); });
                     break;
                 }
                 case "adduser":
@@ -516,6 +518,7 @@ namespace CollabClient
             {
                 MessageBox.Show("Failed to connect to the VM.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
+				Application.Exit();
             }
             else
             {
