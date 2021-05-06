@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 namespace CollabClient
 {
     partial class Form1
@@ -58,10 +59,10 @@ namespace CollabClient
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.pictureBox1.SizeChanged += new System.EventHandler(this.PictureBox1_SizeChanged);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
             // 
             // label1
             // 
@@ -88,7 +89,7 @@ namespace CollabClient
             this.richTextBox1.Size = new System.Drawing.Size(223, 420);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
-            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
+            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.RichTextBox1_LinkClicked);
             // 
             // openFileDialog1
             // 
@@ -105,7 +106,7 @@ namespace CollabClient
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(223, 20);
             this.textBox1.TabIndex = 4;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);
             // 
             // button3
             // 
@@ -118,7 +119,7 @@ namespace CollabClient
             this.button3.TabIndex = 8;
             this.button3.Text = "Change Username";
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // label3
             // 
@@ -160,7 +161,7 @@ namespace CollabClient
             this.richTextBox2.ReadOnly = true;
             this.richTextBox2.Size = new System.Drawing.Size(223, 101);
             this.richTextBox2.TabIndex = 11;
-            this.richTextBox2.Text = "Failed to connect to the vm!\n\nTry again later.";
+            this.richTextBox2.Text = "Failed to connect to the VM!\nTry again later.";
             // 
             // Form1
             // 
@@ -176,6 +177,8 @@ namespace CollabClient
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label1);
+            this.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form0";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -198,4 +201,3 @@ namespace CollabClient
         private System.Windows.Forms.RichTextBox richTextBox2;
     }
 }
-
