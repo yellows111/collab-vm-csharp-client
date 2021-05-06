@@ -86,8 +86,8 @@
     <EmbeddedResource Include="ConnectDialog.resx">
       <DependentUpon>ConnectDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="__Form1_800x600.resx">
+      <DependentUpon>__Form1_800x600.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HTMLView.resx">
       <DependentUpon>HTMLView.cs</DependentUpon>
