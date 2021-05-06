@@ -199,7 +199,7 @@ namespace CollabClient
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.textBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             this.Name = "ConnectDialog";
             this.Text = "Connect to...";
             this.ResumeLayout(false);

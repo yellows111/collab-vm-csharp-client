@@ -1,4 +1,5 @@
-﻿
+﻿using System.Drawing;
+using System.Windows.Forms;
 namespace CollabClient
 {
     partial class HTMLView
@@ -53,9 +54,10 @@ namespace CollabClient
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(584, 247);
             this.Controls.Add(this.webBrowser1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             this.Name = "HTMLView";
-            this.Text = "Message of the Day";
+            this.Text = "CollabVM .NET Client - Message of the Day for "+ Globals.vmname;
+;
             this.ResumeLayout(false);
 
         }

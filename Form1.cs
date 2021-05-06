@@ -28,6 +28,8 @@ namespace CollabClient
         background-color: #404040;
         color: white;
     }}
+    a:link {{color:cyan}};
+    a:visited {{color:magenta}};
   </style>
 </head>
 <body>
@@ -42,7 +44,6 @@ namespace CollabClient
         public Form1()
         {
             InitializeComponent();
-            Console.Title = "CollabVM .NET Client - Console";
             pictureBox1.MouseEnter += (s, e) => pbfocus = true;
             pictureBox1.MouseEnter += (s, e) => ActiveControl = pictureBox1;
             pictureBox1.MouseLeave += (s, e) => pbfocus = false;
@@ -115,6 +116,7 @@ namespace CollabClient
             KeyDown += Form1_KeyDown;
             KeyPress += Form1_KeyPress;
             KeyUp += Form1_KeyUp;
+			FormClosing += Form1_FormClosing;
 
             turnTimer.Elapsed += TurnTimer_Elapsed;
             secondTick.Elapsed += SecondTick_Elapsed;
@@ -1053,6 +1055,10 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
             }
 
             Send("key", k, 1);
+        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+			Application.Exit();
         }
     }
 }

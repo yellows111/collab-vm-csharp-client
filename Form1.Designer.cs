@@ -1,4 +1,6 @@
-﻿namespace CollabClient
+﻿using System.Drawing;
+using System.Windows.Forms;
+namespace CollabClient
 {
     partial class Form1
     {
@@ -173,7 +175,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form0";

@@ -8,6 +8,7 @@ namespace CollabClient
         public ConnectDialog()
         {
             InitializeComponent();
+			Console.Title = "CollabVM .NET Client - Console";
         }
 
         private void Cb_SelectedIndexChanged(object sender, EventArgs e)
