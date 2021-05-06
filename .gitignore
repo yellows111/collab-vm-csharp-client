@@ -1,7 +1,7 @@
 #!nomodify
 
-.bak
+*.bak
 /bin/*
 /obj/*
-.sln 
+*.sln 
 # error MSB1025: An internal failure occurred while running MSBuild.
