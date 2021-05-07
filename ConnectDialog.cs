@@ -69,11 +69,11 @@ namespace CollabClient
                     break;
 				case 14:
                     textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "whistler2419";
+                    textBox2.Text = "egg";
                     break;				
 				case 15:
                     textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "egg";
+                    textBox2.Text = "whistler2419";
                     break;				
 				case 16:
                     textBox.Text = "35.192.5.210:6004";
