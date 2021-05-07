@@ -177,7 +177,9 @@ namespace CollabClient
 			"DG XP Home and LM9",
 			"DG OS X Leopard",
 			"DG Cool (Bootleg)",
-			"Spy FartVM 1"});
+			"DG Whistler 2419",
+			"Spy FartVM 1",
+			"Spy FartVM 2"});
             this.cb.Location = new System.Drawing.Point(73, 44);
             this.cb.Name = "cb";
             this.cb.Size = new System.Drawing.Size(141, 21);

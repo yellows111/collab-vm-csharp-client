@@ -66,14 +66,22 @@ namespace CollabClient
 				case 13:
                     textBox.Text = "173.252.197.90:6004";
                     textBox2.Text = "mac2007";
-                    break;				
+                    break;
 				case 14:
+                    textBox.Text = "173.252.197.90:6004";
+                    textBox2.Text = "whistler2419";
+                    break;				
+				case 15:
                     textBox.Text = "173.252.197.90:6004";
                     textBox2.Text = "egg";
                     break;				
-				case 15:
+				case 16:
                     textBox.Text = "35.192.5.210:6004";
                     textBox2.Text = "fartvm1";
+                    break;				
+				case 17:
+                    textBox.Text = "35.192.5.210:6005";
+                    textBox2.Text = "fartvm2";
                     break;
             }
         }
