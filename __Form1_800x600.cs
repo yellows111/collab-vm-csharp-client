@@ -327,8 +327,13 @@ namespace CollabClient
                         }
                         a = a.Substring(0, a.Length - 3);
                         Console.WriteLine(a); */
-                    Console.WriteLine("list: " + args[1] + " | " + args[2]);
-                    break;
+						for (var i = 1; i < args.Length; i += 3)
+						{
+							Console.WriteLine("list | " + args[i] + " | " +args[i + 1]);
+                            string html = "<h1>"+args[i]+"</h1><hr>"+args[i + 1]+"<br>";
+                            Invoke((MethodInvoker) delegate { ViewHTML(ref html); });
+						}
+					break;
                 }
                 case "adduser":
                 {
