@@ -521,6 +521,7 @@ namespace CollabClient
             {
                 MessageBox.Show("Failed to connect to the VM.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
+				Application.Exit();
             }
             else
             {
