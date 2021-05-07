@@ -26,7 +26,6 @@ namespace CollabClient
 						string getnode = args[0].Split('/')[3].Split('#')[1];
 						Globals.vmip = getip;
 						Globals.vmname = getnode;
-						Globals.vmusername = "tester";
 						Application.Run(new Form1());
 						break;
 					}
