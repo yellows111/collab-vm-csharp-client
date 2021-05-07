@@ -22,10 +22,17 @@ namespace CollabClient
 					case "collabvm:" :
 					case "cvm:" :
 					{
+						try {
 						string getip = args[0].Split('/')[2];
 						string getnode = args[0].Split('/')[3].Split('#')[1];
 						Globals.vmip = getip;
 						Globals.vmname = getnode;
+						}
+						catch (IndexOutOfRangeException)
+						{
+						Console.WriteLine("Invaild collabvm:// or cvm:// URI!");
+						Application.Run(new ConnectDialog());
+						}
 						Application.Run(new Form1());
 						break;
 					}
