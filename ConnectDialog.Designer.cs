@@ -173,7 +173,9 @@ namespace CollabClient
             "DarkOK Vista",
             "DG Geek XP",
             "DG Ubuntu",
-            "DG 7989 VM"});
+            "DG 7989 VM",
+			"DG XP Home and LM9",
+			"DG OS X Leopard"});
             this.cb.Location = new System.Drawing.Point(73, 44);
             this.cb.Name = "cb";
             this.cb.Size = new System.Drawing.Size(141, 21);
