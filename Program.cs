@@ -16,15 +16,14 @@ namespace CollabClient
 			if (args.Length > 0)
 			{
 				Console.Title = "CollabVM .NET Client - Console";
-				string uri = args[0].Split('/')[2];
 				string prefix = args[0].Split('/')[0];
 				switch (prefix)
 				{
 					case "collabvm:" :
 					case "cvm:" :
 					{
-						string getip = uri.Split('#')[0];
-						string getnode = uri.Split('#')[1];
+						string getip = args[0].Split('/')[2];
+						string getnode = args[0].Split('/')[3].Split('#')[1];
 						Globals.vmip = getip;
 						Globals.vmname = getnode;
 						Globals.vmusername = "tester";
@@ -33,7 +32,7 @@ namespace CollabClient
 					}
 					default:
 					{
-						Console.WriteLine("Enter a valid collabvm:// or cvm:// URI!\nExample: cvm://example.com:6004#example");
+						Console.WriteLine("Enter a valid collabvm:// or cvm:// URI!\nExample: cvm://example.com:6004/#example");
 						break;
 					}
 				}
