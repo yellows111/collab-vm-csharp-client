@@ -179,7 +179,8 @@ namespace CollabClient
 			"DG Cool (Bootleg)",
 			"DG Whistler 2419",
 			"Spy FartVM 1",
-			"Spy FartVM 2"});
+			"Spy FartVM 2",
+			"ziad87 Win 8064"});
             this.cb.Location = new System.Drawing.Point(73, 44);
             this.cb.Name = "cb";
             this.cb.Size = new System.Drawing.Size(141, 21);

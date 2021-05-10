@@ -83,6 +83,10 @@ namespace CollabClient
                     textBox.Text = "35.192.5.210:6005";
                     textBox2.Text = "fartvm2";
                     break;
+				case 18:
+					textBox.Text = "darkok.xyz:3037";
+                    textBox2.Text = "cvmi-windoze8064";
+                    break;
             }
         }
 
