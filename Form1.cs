@@ -225,6 +225,7 @@ namespace CollabClient
                         {
                             string html = args[i + 1];
                             Invoke((MethodInvoker) delegate { ViewHTML(ref html); });
+                            return;
                         }
 
                         Invoke((MethodInvoker) delegate
