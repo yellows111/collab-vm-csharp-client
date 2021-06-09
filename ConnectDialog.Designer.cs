@@ -169,17 +169,13 @@ namespace CollabClient
             "Computernewb VM4",
             "Computernewb VM5",
             "Computernewb VM6",
-            "Computernewb VM0 ",
+            "Computernewb VM0",
             "DarkOK Vista",
-            "DG Geek XP",
-            "DG Ubuntu",
-            "DG 7989 VM",
-			"DG XP Home and LM9",
-			"DG OS X Leopard",
-			"DG Cool (Bootleg)",
-			"DG Whistler 2419",
+            "Longhorn's 8014 VM",
 			"Spy FartVM 1",
 			"Spy FartVM 2",
+			"Spy FartVM 3",
+			"Spy FartVM 4",
 			"ziad87 Win 8064"});
             this.cb.Location = new System.Drawing.Point(73, 44);
             this.cb.Name = "cb";
