@@ -32,6 +32,7 @@ namespace CollabClient
 						{
 						Console.WriteLine("Invaild collabvm:// or cvm:// URI!");
 						Application.Run(new ConnectDialog());
+						break;
 						}
 						Console.WriteLine("Attempting to connect to "+Globals.vmip+"#"+Globals.vmname+"...");
 						Application.Run(new Form1());
