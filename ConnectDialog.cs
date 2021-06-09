@@ -48,42 +48,26 @@ namespace CollabClient
                     textBox2.Text = "pissta";
                     break;
                 case 9:
-                    textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "gxp4";
-                    break;
-                case 10:
-                    textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "ubuntu";
-                    break;
-                case 11:
-                    textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "7989vm";
-                    break;
+                    textBox.Text = "198.176.57.155:6004";
+                    textBox2.Text = "win8014";
+                    break;				
+				case 10:
+                    textBox.Text = "104.154.120.64:6004";
+                    textBox2.Text = "fartvm1virus";
+                    break;				
+				case 11:
+                    textBox.Text = "104.154.120.64:6005";
+                    textBox2.Text = "fartvm2";
+                    break;				
 				case 12:
-                    textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "xphomelm9";
-                    break;
+                    textBox.Text = "104.154.120.64:6006";
+                    textBox2.Text = "fartvm3";
+                    break;				
 				case 13:
-                    textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "mac2007";
+                    textBox.Text = "104.154.120.64:6007";
+                    textBox2.Text = "fartvm4";
                     break;
 				case 14:
-                    textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "egg";
-                    break;				
-				case 15:
-                    textBox.Text = "173.252.197.90:6004";
-                    textBox2.Text = "whistler2419";
-                    break;				
-				case 16:
-                    textBox.Text = "35.192.5.210:6004";
-                    textBox2.Text = "fartvm1";
-                    break;				
-				case 17:
-                    textBox.Text = "35.192.5.210:6005";
-                    textBox2.Text = "fartvm2";
-                    break;
-				case 18:
 					textBox.Text = "darkok.xyz:3037";
                     textBox2.Text = "cvmi-windoze8064";
                     break;
