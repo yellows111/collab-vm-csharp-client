@@ -331,7 +331,7 @@ namespace CollabClient
 						for (var i = 1; i < args.Length; i += 3)
 						{
 							Console.WriteLine("list | " + args[i] + " | " +args[i + 1]);
-                            string html = "<h1>"+args[i]+"</h1><hr>"+args[i + 1]+"<br>";
+                            string html = "<h1>"+args[i]+"</h1><hr>"+args[i + 1]+"<br><br>"+"<img src=\"data:image/png;base64,"+args[i + 2]+"\">";
                             Invoke((MethodInvoker) delegate { ViewHTML(ref html); });
 						}
 					break;
