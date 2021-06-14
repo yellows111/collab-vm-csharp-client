@@ -488,6 +488,36 @@ namespace CollabClient
                     //goto default;
                     break;
                 }
+				case "connect":
+				{
+					switch (args[1]) {
+						case "0": {
+							MessageBox.Show("The VM you specified does not exist on this server.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							Close();
+							Application.Exit();
+							break;
+						}
+						
+						case "1": {
+							Console.WriteLine("Connected successfully to "+Globals.vmname+" on "+Globals.vmip+".");
+							break;
+						}
+						
+						case "2": {
+							Console.WriteLine("Disconnected from "+Globals.vmname+".");
+							MessageBox.Show("The server closed the connection gracefully.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							Close();
+							Application.Exit();
+							break;
+						}						
+						
+						case "3": {
+							Console.WriteLine("Not implemented yet.");
+							break;
+						}
+					}
+                    break;
+				}
                 default:
                 {
                     string a = "";
@@ -505,7 +535,7 @@ namespace CollabClient
 
         private void Socket_OnOpen(object sender, EventArgs e)
         {
-            Console.WriteLine("Connected to " + Globals.vmip + "#" + Globals.vmname);
+            Console.WriteLine("Connected to " + Globals.vmip + ".\nWaiting for VM " + Globals.vmname + "...");
             Console.Title = "CollabVM .NET Client - Console [" + Globals.vmname + "]";
             //Send("list"); //lag
             Send("rename", Globals.vmusername);
