@@ -301,7 +301,7 @@ namespace CollabClient
                         //Console.WriteLine(cur.HotSpot);//5,8
                         //Console.WriteLine(cur.Size);//32,32???
                         //;
-                        Invoke((MethodInvoker) delegate { pictureBox1.Cursor = cur; });
+                        Invoke((MethodInvoker) delegate { pictureBox1.Cursor = System.Windows.Forms.Cursors.Default; }); //cur breaks
                     }
 
                     break;
@@ -328,6 +328,17 @@ namespace CollabClient
                         }
                         a = a.Substring(0, a.Length - 3);
                         Console.WriteLine(a); */
+						if (Globals.vmdiscovery == true){
+							string list = "Use the prefix as the node ID in the connection dialog!\n---\n";
+							for (var i = 1; i < args.Length; i += 3) {
+							list += args[i]+": "+args[i+1]+"\n---\n";
+							}
+							list = list.Replace("<br>", " | ").Replace("<small>", "").Replace("</small>", "").Replace("<b>"," *").Replace("</b>", "* ").Replace("</p>", "").Replace("  "," ");
+							MessageBox.Show(list, "List of VMs on server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							Close();
+							Application.Exit();
+							break;
+							};
 						for (var i = 1; i < args.Length; i += 3)
 						{
 							Console.WriteLine("list | " + args[i] + " | " +args[i + 1]);
@@ -384,10 +395,10 @@ namespace CollabClient
                 {
                     Invoke((MethodInvoker) delegate
                     {
-                        Console.WriteLine("size: " + args[2] + "x" + args[3] + ", type" + args[1]);
+                        if (args[1] != "0") return;
+						Console.WriteLine("size: " + args[2] + "x" + args[3] + ", type" + args[1]);
                         //int screenx = Int32.Parse(args[2]);
                         //int screeny = Int32.Parse(args[3]);
-                        if (args[1] != "0") return;
                         /* 	rem this when safe	pictureBox1.Image.Dispose();
 						g.Dispose();
 					    pictureBox1.Image = new Bitmap(Convert.ToInt32(screenx), Convert.ToInt32(screeny)); // trolled not making a new bitmapobject :trollface:, also mdkck10
@@ -488,13 +499,28 @@ namespace CollabClient
                     //goto default;
                     break;
                 }
+				case "cursor": {
+					break; //packet spam
+				}
 				case "connect":
 				{
 					switch (args[1]) {
 						case "0": {
-							MessageBox.Show("The VM you specified does not exist on this server.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-							Close();
-							Application.Exit();
+							var result = MessageBox.Show("The VM you specified does not exist on this server.\nDo you want to search for VMs that exist on this server?", "Just one thing!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+							switch (result) {
+								case System.Windows.Forms.DialogResult.Yes: {
+									Globals.vmdiscovery = true;
+									Send("list");
+									break;
+								}
+								case System.Windows.Forms.DialogResult.No: 
+								default:
+								{
+									Close();
+									Application.Exit();
+									break;
+								}
+							}
 							break;
 						}
 						
@@ -512,7 +538,7 @@ namespace CollabClient
 						}						
 						
 						case "3": {
-							Console.WriteLine("Not implemented yet.");
+							Console.WriteLine("VM requires a password. [Currently not implemented to client.]");
 							break;
 						}
 					}
