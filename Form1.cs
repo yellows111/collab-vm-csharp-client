@@ -296,7 +296,7 @@ namespace CollabClient
                         gnew.DrawImage(img, 10, 16);
 
 
-                        var cur = new Cursor(((Bitmap) newimg).GetHicon());
+                        // var cur = new Cursor(((Bitmap) newimg).GetHicon());
 
                         //Console.WriteLine(cur.HotSpot);//5,8
                         //Console.WriteLine(cur.Size);//32,32???
