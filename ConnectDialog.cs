@@ -52,19 +52,19 @@ namespace CollabClient
                     textBox2.Text = "win8014";
                     break;				
 				case 10:
-                    textBox.Text = "104.154.120.64:6004";
+                    textBox.Text = "35.225.145.202:6004";
                     textBox2.Text = "fartvm1virus";
                     break;				
 				case 11:
-                    textBox.Text = "104.154.120.64:6005";
-                    textBox2.Text = "fartvm2";
+                    textBox.Text = "35.225.145.202:6005";
+                    textBox2.Text = "fartvm2win11";
                     break;				
 				case 12:
-                    textBox.Text = "104.154.120.64:6006";
+                    textBox.Text = "35.225.145.202:6006";
                     textBox2.Text = "fartvm3";
                     break;				
 				case 13:
-                    textBox.Text = "104.154.120.64:6007";
+                    textBox.Text = "35.225.145.202:6007";
                     textBox2.Text = "fartvm4";
                     break;
 				case 14:
