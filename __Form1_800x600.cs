@@ -83,7 +83,7 @@ namespace CollabClient
         private int turntime;
         private const double screenx = 1024d;
         private const double screeny = 768d;
-
+		
         private void Form1_Load(object sender, EventArgs e)
         {
            //pictureBox1.Refresh();
@@ -98,6 +98,8 @@ namespace CollabClient
             CheckForIllegalCrossThreadCalls = false; // you didn't see anything, this line doesn't exist
             pictureBox1.Image = new Bitmap(1024, 768);
             g = Graphics.FromImage(pictureBox1.Image);
+			Globals.gi = new Bitmap(Globals.gx, Globals.gy);
+			Graphics gtoo = Graphics.FromImage(Globals.gi);
             Text = "CollabVM .NET Client: " + Globals.vmip + "#" + Globals.vmname;
             socket = new WebSocket("ws://" + Globals.vmip, "guacamole") {Origin = "http://" + Globals.vmip.Split(':')[0]};
             socket.OnClose += Socket_OnClose;
@@ -267,7 +269,14 @@ namespace CollabClient
                         var img = Image.FromStream(ms, true);
                         //var point = new Point(int.Parse(args[3]), int.Parse(args[4]));
                         //g.DrawImage(img, point);
-                        g.DrawImage(img, int.Parse(args[3]), int.Parse(args[4]));
+						
+						Graphics gtoo = Graphics.FromImage(Globals.gi);
+						//Graphics gthree = Graphics.FromImage(pictureBox1.Image);
+                        gtoo.DrawImage(img, int.Parse(args[3]), int.Parse(args[4]));
+						Image canvas = ResizeBitmap(Globals.gi, 1024, 768);
+						g.DrawImage(canvas, 0, 0);  // creates excessive lag, beware!
+						//g.DrawImage(img, int.Parse(args[3]), int.Parse(args[4]));
+						
                         img.Dispose();
                         ms.Dispose();
                         //pictureBox1.Invalidate(new Rectangle(point, img.Size));
@@ -296,7 +305,7 @@ namespace CollabClient
                         gnew.DrawImage(img, 10, 16);
 
 
-                        // var cur = new Cursor(((Bitmap) newimg).GetHicon());
+                        var cur = new Cursor(((Bitmap) newimg).GetHicon());
 
                         //Console.WriteLine(cur.HotSpot);//5,8
                         //Console.WriteLine(cur.Size);//32,32???
@@ -397,14 +406,25 @@ namespace CollabClient
                     {
                         if (args[1] != "0") return;
 						Console.WriteLine("size: " + args[2] + "x" + args[3] + ", type" + args[1]);
-                        //int screenx = Int32.Parse(args[2]);
-                        //int screeny = Int32.Parse(args[3]);
+                        int screenx = Int32.Parse(args[2]);
+                        int screeny = Int32.Parse(args[3]);
+						 Globals.gx = Int32.Parse(args[2]);
+                        Globals.gy = Int32.Parse(args[3]);
                         /* 	rem this when safe	pictureBox1.Image.Dispose();
 						g.Dispose();
 					    pictureBox1.Image = new Bitmap(Convert.ToInt32(screenx), Convert.ToInt32(screeny)); // trolled not making a new bitmapobject :trollface:, also mdkck10
 						g = Graphics.FromImage(pictureBox1.Image); */
-                        scalex = screenx / pictureBox1.Width;
-                        scaley = screeny / pictureBox1.Height;
+					/* 	Image source = new Bitmap(Convert.ToInt32(Int32.Parse(args[2])), Convert.ToInt32(Int32.Parse(args[3])));
+						Graphics input = Graphics.FromImage(source);
+						input.DrawImage(pictureBox1.Image, 0, 0);
+						Image canvas = ResizeBitmap(source, 1024, 768);
+						g = Graphics.FromImage(pictureBox1.Image);
+						g.DrawImage(canvas, 0, 0); */
+						float pictboxx = pictureBox1.Width / Globals.scale;
+						float pictboxy = pictureBox1.Height / Globals.scale;
+						scalex = Globals.gx / pictboxx;
+						scaley = Globals.gy / pictboxy;
+						Globals.gi = new Bitmap(Globals.gx, Globals.gy);
                         pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                         pictureBox1.Refresh();
                         PictureBox1_SizeChanged(null, null);
@@ -691,8 +711,10 @@ namespace CollabClient
         {
             Console.WriteLine("[C] size: " + screenx + "x" + screeny);
             //topleftpicboxpos = new Point(0, 0);
-            scalex = screenx / pictureBox1.Width;
-            scaley = screeny / pictureBox1.Height;
+			float pictboxx = pictureBox1.Width / 1.0f;
+			float pictboxy = pictureBox1.Height / 1.0f;
+            scalex = Globals.gx / pictboxx;
+            scaley = Globals.gy / pictboxy;
             Console.WriteLine("[C] mousescale: " + scalex + "," + scaley);
             //scalex = pictureBox1.Width / 1024d;
             //scaley = pictureBox1.Height / 768d;
@@ -1122,6 +1144,28 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
 			Application.Exit();
+        }
+		public static Bitmap ResizeBitmap(Image image, int width, int height) {
+            
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage)) {
+                graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new System.Drawing.Imaging.ImageAttributes()) {
+                    wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
     }
 }
