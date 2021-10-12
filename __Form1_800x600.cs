@@ -1082,7 +1082,18 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
 				case 40: //down
 					k = 0xff54;
 					break;
-					
+				case 17: // Control
+					k = 0xffe3;
+					break;				
+				case 18: // Alt, windows calls this Menu but XK_MENU is 93 lol
+					k = 0xffe9;
+					break;				
+				case 91: // Left Super
+					k = 0xffeb;
+					break;				
+				case 93: // Menu / "right super"
+					k = 0xff67;
+					break;
             }
 
             Send("key", k, 0);
@@ -1174,6 +1185,18 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
 					break;
 				case 40: //down
 					k = 0xff54;
+					break;
+				case 17: // Control
+					k = 0xffe3;
+					break;				
+				case 18: // Alt, windows calls this Menu but XK_MENU is 93 lol
+					k = 0xffe9;
+					break;				
+				case 91: // Left Super
+					k = 0xffeb;
+					break;				
+				case 93: // Menu / "right super"
+					k = 0xff67;
 					break;
             }
 
