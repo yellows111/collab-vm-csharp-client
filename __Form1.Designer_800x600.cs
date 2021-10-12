@@ -131,6 +131,7 @@ namespace CollabClient
             this.label3.Size = new System.Drawing.Size(62, 15);
             this.label3.TabIndex = 9;
             this.label3.Text = "<you>";
+            this.label3.Click += new System.EventHandler(this.Label3_Click);
             // 
             // label4
             // 

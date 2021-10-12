@@ -661,6 +661,29 @@ namespace CollabClient
                 {
                     Send("vote", "0");
                     break;
+                }                
+				case "!skip":
+                {
+                    Send("turn", "0");
+                    break;
+                }                
+				case "!kick":
+                {
+					ChangeUsername kick = new ChangeUsername("Person to kick");
+					if (kick.ShowDialog() == DialogResult.OK)
+					{
+						Send("admin", "12", kick.nick);
+					}
+                    break;
+                }                
+				case "!ban":
+                {
+					ChangeUsername ban = new ChangeUsername("Person to ban");
+					if (ban.ShowDialog() == DialogResult.OK)
+					{
+						Send("admin", "12", ban.nick);
+					}
+                    break;
                 }
                 case "!debug list":
                 {
@@ -902,6 +925,18 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
             {
                 Send("rename", ass.nick);
             }
+        }        
+		private void Label3_Click(object sender, EventArgs e)
+        {
+            ChangeUsername login = new ChangeUsername("Give Me The: Password");
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                Send("admin", "2", login.nick); /**
+													Tired: Making a new dialog box
+													Hired: Reusing a dialog box with different texts
+													Wired: literally use the same dialog box as rename
+												**/
+            }
         }
 
         private static ushort HandleKey(KeyEventArgs e)
@@ -1035,6 +1070,19 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
                 case 221:
                     k = 0x007d;
                     break;
+				case 37: //left
+					k = 0xff51;
+					break;
+				case 38: //up
+					k = 0xff52;
+					break;
+				case 39: //right
+					k = 0xff53;
+					break;
+				case 40: //down
+					k = 0xff54;
+					break;
+					
             }
 
             Send("key", k, 0);
@@ -1115,6 +1163,18 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
                 case 221:
                     k = 0x007d;
                     break;
+				case 37: //left
+					k = 0xff51;
+					break;
+				case 38: //up
+					k = 0xff52;
+					break;
+				case 39: //right
+					k = 0xff53;
+					break;
+				case 40: //down
+					k = 0xff54;
+					break;
             }
 
             Send("key", k, 1);
