@@ -684,6 +684,16 @@ namespace CollabClient
 						Send("admin", "12", ban.nick);
 					}
                     break;
+                }				
+				case "!araw":
+                {
+					ChangeUsername raw = new ChangeUsername("admin command to exec (5.admin,$input;)");
+					if (raw.ShowDialog() == DialogResult.OK)
+					{
+						Console.WriteLine("Sending:","5.admin,"+raw.nick+";");
+						socket.Send("5.admin,"+raw.nick+";");
+					}
+                    break;
                 }
                 case "!debug list":
                 {
