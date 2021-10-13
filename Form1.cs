@@ -1094,6 +1094,32 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
 				case 93: // Menu / "right super"
 					k = 0xff67;
 					break;
+				//Function keys disabled due to conflict with standard keys?
+				case 36: // Home Key 
+					k = 0xff50;
+					break;
+				case 35: // End Key 
+					k = 0xff57;
+					break;
+				case 45: // Insert Key 
+					k = 0xff63;
+					break;
+				case 46: // Delete Key 
+					k = 0xffff;
+					break;
+				case 33: // Page up Key 
+					k = 0xff55;
+					break;
+				case 34: // Page down Key 
+					k = 0xff56;
+					break;
+				//Numlocked keys disabled due to conflict with standard keys?
+				case 19: // Break/Pause
+					k = 0xff13;
+					break;
+				case 44: // System Request (Print Screen)
+					k = 0xff15;
+					break;
             }
 
             Send("key", k, 0);
@@ -1197,6 +1223,32 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
 					break;				
 				case 93: // Menu / "right super"
 					k = 0xff67;
+					break;
+				//Function keys disabled due to conflict with standard keys?
+				case 36: // Home Key 
+					k = 0xff50;
+					break;
+				case 35: // End Key 
+					k = 0xff57;
+					break;
+				case 45: // Insert Key 
+					k = 0xff63;
+					break;
+				case 46: // Delete Key 
+					k = 0xffff;
+					break;
+				case 33: // Page up Key 
+					k = 0xff55;
+					break;
+				case 34: // Page down Key 
+					k = 0xff56;
+					break;
+				//Numlocked keys disabled due to conflict with standard keys?
+				case 19: // Break/Pause
+					k = 0xff13;
+					break;
+				case 44: // System Request (Print Screen)
+					k = 0xff15;
 					break;
             }
 
