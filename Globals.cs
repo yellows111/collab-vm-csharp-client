@@ -177,12 +177,97 @@
 					}
 					break;
 				}
+				case "Oemtilde": { // not to be confused with Oem8
+					switch (kc)
+					{
+						case 192: // ~
+							keycode = 0x007e;
+							break;
+						case 224: // `
+							keycode = 0x0060;
+							break;
+					}
+					break;
+				}
+				case "OemBackslash": { // on 102-key US keyboards or equiv... dupe of Oem5
+					switch (kc)
+					{
+						case 194:
+							keycode = 0x007c;
+							break;
+						case 226:
+							keycode = 0x005c;
+							break;
+					}
+					break;
+				}
 				// Return to sanity?
 				case "Tab":
 					keycode = 0xff09;
 					break;
 				case "Capital":
 					keycode = 0xffe5;
+					break;
+				case "Pause":
+					keycode = 0xff6b;
+					break;
+				case "PrintScreen":
+					keycode = 0xff15;
+					break;
+				case "Scroll":
+					keycode = 0xff14;
+					break;
+				case "BrowserSearch": //X11 doesn't define Media Keys, so we have to do massive assumptions or make them keys you can't press normally
+					keycode = 0xff09;
+					break;
+					// bonus round: keypad with NL on
+				case "NumPad0":
+					keycode = 0xffb0;
+					break;
+				case "NumPad1":
+					keycode = 0xffb1;
+					break;
+				case "NumPad2":
+					keycode = 0xffb2;
+					break;
+				case "NumPad3":
+					keycode = 0xffb3;
+					break;
+				case "NumPad4":
+					keycode = 0xffb4;
+					break;
+				case "NumPad5":
+					keycode = 0xffb5;
+					break;
+				case "NumPad6":
+					keycode = 0xffb6;
+					break;
+				case "NumPad7":
+					keycode = 0xffb7;
+					break;
+				case "NumPad8":
+					keycode = 0xffb8;
+					break;
+				case "NumPad9":
+					keycode = 0xffb9;
+					break;
+				case "Decimal":
+					keycode = 0xffae;
+					break;
+				case "Add":
+					keycode = 0xffab;
+					break;
+				case "Divide":
+					keycode = 0xffaf;
+					break;
+				case "Multiply":
+					keycode = 0xffaa;
+					break;
+				case "Subtract":
+					keycode = 0xffad;
+					break;
+				case "NumLock":
+					keycode = 0xff7f;
 					break;
 				default: // every key *not* listed here fallbacks to this...
 					keycode = fallback;
