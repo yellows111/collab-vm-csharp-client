@@ -48,26 +48,30 @@ namespace CollabClient
                     textBox2.Text = "pissta";
                     break;
                 case 9:
-                    textBox.Text = "198.176.57.155:6004";
-                    textBox2.Text = "win8014";
+                    textBox.Text = "uvm.vmland.cf:2095";
+                    textBox2.Text = "WindowsWhistler2257-BP";
                     break;				
 				case 10:
-                    textBox.Text = "35.225.145.202:6004";
-                    textBox2.Text = "fartvm1virus";
+                    textBox.Text = "uvm.vmland.cf:2095";
+                    textBox2.Text = "WindowsWhistler2296-BP";
                     break;				
 				case 11:
-                    textBox.Text = "35.225.145.202:6005";
-                    textBox2.Text = "fartvm2win11";
+                    textBox.Text = "uvm.vmland.cf:2095";
+                    textBox2.Text = "WindowsWhistler2419-BP";
                     break;				
 				case 12:
-                    textBox.Text = "35.225.145.202:6006";
-                    textBox2.Text = "fartvm3";
+                    textBox.Text = "uvm.vmland.cf:2095";
+                    textBox2.Text = "WindowsWhistler2430-BP";
                     break;				
 				case 13:
-                    textBox.Text = "35.225.145.202:6007";
-                    textBox2.Text = "fartvm4";
+                    textBox.Text = "uvm.vmland.cf:2095";
+                    textBox2.Text = "WindowsWhistler2463-BP";
                     break;
 				case 14:
+					textBox.Text = "uvm.vmland.cf:2095";
+                    textBox2.Text = "WindowsWhistler2475-BP";
+                    break;
+				case 15:
 					textBox.Text = "darkok.xyz:3037";
                     textBox2.Text = "cvmi-windoze8064";
                     break;
