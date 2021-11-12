@@ -16,31 +16,31 @@ namespace CollabClient
             switch (cb.SelectedIndex + 1)
             {
                 case 1:
-                    textBox.Text = "computernewb.com:6004";
+                    textBox.Text = "computernewb.com:80/collab-vm/vm1";
                     textBox2.Text = "vm1";
                     break;
                 case 2:
-                    textBox.Text = "computernewb.com:6005";
+                    textBox.Text = "computernewb.com:80/collab-vm/vm2";
                     textBox2.Text = "vm2";
                     break;
                 case 3:
-                    textBox.Text = "computernewb.com:6006";
+                    textBox.Text = "computernewb.com:80/collab-vm/vm3";
                     textBox2.Text = "vm3";
                     break;
                 case 4:
-                    textBox.Text = "computernewb.com:6007";
+                    textBox.Text = "computernewb.com:80/collab-vm/vm4";
                     textBox2.Text = "vm4";
                     break;
                 case 5:
-                    textBox.Text = "computernewb.com:6008";
+                    textBox.Text = "computernewb.com:80/collab-vm/vm5";
                     textBox2.Text = "vm5";
                     break;
                 case 6:
-                    textBox.Text = "computernewb.com:6009";
+                    textBox.Text = "computernewb.com:80/collab-vm/vm6";
                     textBox2.Text = "vm6";
                     break;
                 case 7:
-                    textBox.Text = "computernewb.com:7000";
+                    textBox.Text = "computernewb.com:80/collab-vm/vm0";
                     textBox2.Text = "vm0";
                     break;
                 case 8:

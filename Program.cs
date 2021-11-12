@@ -23,8 +23,10 @@ namespace CollabClient
 					case "cvm:" :
 					{
 						try {
-						string getip = args[0].Split('/')[2];
-						string getnode = args[0].Split('/')[3].Split('#')[1];
+						string[] seperators = { "//", "#" };
+						string[] purl = args[0].Split(seperators, System.StringSplitOptions.RemoveEmptyEntries);
+						string getip = purl[1];
+						string getnode = purl[2];
 						Globals.vmip = getip;
 						Globals.vmname = getnode;
 						}
