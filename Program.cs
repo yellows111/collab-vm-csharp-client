@@ -32,11 +32,33 @@ namespace CollabClient
 						}
 						catch (IndexOutOfRangeException)
 						{
-						Console.WriteLine("Invaild collabvm:// or cvm:// URI!");
+						Console.WriteLine("Invaild collabvm://, cvm://, collabvms:// or cvms:// URI!");
 						Application.Run(new ConnectDialog());
 						break;
 						}
 						Console.WriteLine("Attempting to connect to "+Globals.vmip+"#"+Globals.vmname+"...");
+						Application.Run(new Form1());
+						break;
+					}					
+					case "collabvms:" :
+					case "cvms:" :
+					{
+						try {
+						string[] seperators = { "//", "#" };
+						string[] purl = args[0].Split(seperators, System.StringSplitOptions.RemoveEmptyEntries);
+						string getip = purl[1];
+						string getnode = purl[2];
+						Globals.vmip = getip;
+						Globals.vmname = getnode;
+						Globals.isSecure = true;
+						}
+						catch (IndexOutOfRangeException)
+						{
+						Console.WriteLine("Invaild collabvm://, cvm://, collabvms:// or cvms:// URI!");
+						Application.Run(new ConnectDialog());
+						break;
+						}
+						Console.WriteLine("Attempting to connect with TLS to "+Globals.vmip+"#"+Globals.vmname+"...");
 						Application.Run(new Form1());
 						break;
 					}
