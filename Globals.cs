@@ -2,10 +2,12 @@
 {
     internal class Globals
     {
-        public static string vmip = "IP here, node name ->";
-        public static string vmname = "here";
-        public static string vmusername = "collabvm-csharp-user";
+		public static string vmip = "IP here, node name ->";
+		public static string vmname = "here";
+		public static string vmusername = "collabvm-csharp-user";
 		public static bool vmdiscovery = false;
+		public static bool isSecure = false;
+		public static bool isCompressed = true;
 		public static ushort GetKeycodeByName(System.Windows.Forms.KeyEventArgs Keyevent, ushort fallback) {
 			System.Windows.Forms.Keys Keyname = Keyevent.KeyCode;
 			string keystring = Keyname.ToString();
