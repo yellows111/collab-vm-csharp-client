@@ -5,3 +5,7 @@
 /obj/*
 *.sln 
 # error MSB1025: An internal failure occurred while running MSBuild.
+
+# diff leftovers/mergetool
+*.orig
+*~HEAD
