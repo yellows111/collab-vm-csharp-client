@@ -372,11 +372,13 @@ namespace CollabClient
 
                     if (args[3] == "2")
                     {
+						users.Remove(args[2]);
                         LogChat($">{args[2]} authenticated as a adminstrator.");
                     }
 
                     if (args[3] == "3")
                     {
+						users.Remove(args[2]);
                         LogChat($">{args[2]} authenticated as a moderator.");
                     }
 
