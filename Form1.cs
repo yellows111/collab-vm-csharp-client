@@ -99,11 +99,19 @@ namespace CollabClient
             pictureBox1.Image = new Bitmap(1024, 768);
             g = Graphics.FromImage(pictureBox1.Image);
             Text = "CollabVM .NET Client: " + Globals.vmip + "#" + Globals.vmname;
-            socket = new WebSocket("ws://" + Globals.vmip, "guacamole") {Origin = "http://" + Globals.vmip.Split(':')[0]};
-            socket.OnClose += Socket_OnClose;
+			string wsprefix = Globals.isSecure ? "wss" : "ws";
+            socket = new WebSocket(wsprefix+"://" + Globals.vmip, "guacamole") {Origin = "http://" + Globals.vmip.Split(':')[0]};
+            if (Globals.isSecure){
+				socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+			}
+			socket.OnClose += Socket_OnClose;
             socket.OnOpen += Socket_OnOpen;
             socket.OnMessage += Socket_OnMessage;
-            socket.Compression = CompressionMethod.Deflate;
+			if (Globals.isCompressed){
+				socket.Compression = CompressionMethod.Deflate;
+			} else {
+				socket.Compression = CompressionMethod.None;
+			}
             //pictureBox1.Image = Properties.Resources.Loading;
             //pictureBox1.Refresh();
             socket.Connect();
