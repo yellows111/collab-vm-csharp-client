@@ -9,3 +9,9 @@
 # diff leftovers/mergetool
 *.orig
 *~HEAD
+
+# more mergetool leftovers
+*_BACKUP_*
+*_LOCAL_*
+*_REMOTE_*
+*_BASE_*
