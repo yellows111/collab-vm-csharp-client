@@ -372,13 +372,13 @@ namespace CollabClient
 
                     if (args[3] == "2")
                     {
-						users.Remove(args[2]);
+						users.Remove(args[2]); // fixes duping
                         LogChat($">{args[2]} authenticated as a adminstrator.");
                     }
 
                     if (args[3] == "3")
                     {
-						users.Remove(args[2]);
+						users.Remove(args[2]); // fixes duping
                         LogChat($">{args[2]} authenticated as a moderator.");
                     }
 
@@ -675,6 +675,11 @@ namespace CollabClient
 				case "!skip":
                 {
                     Send("turn", "0");
+                    break;
+                }    				
+				case "!ss":
+                {
+                    System.Windows.Forms.Clipboard.SetImage(pictureBox1.Image);
                     break;
                 }                
 				case "!kick":
