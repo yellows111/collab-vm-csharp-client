@@ -1,4 +1,4 @@
-name: Build CSharpClient
+name: Build CSharpClient for 800x600
 
 on:
   push:
@@ -52,7 +52,7 @@ jobs:
       - name: Upload Artifact - Debug Binary
         uses: 'actions/upload-artifact@v2'
         with:
-          name: Binary-debug
+          name: Binary-debug-800x600
           path: './bin/Debug/*.exe'
 
       - name: Use MSBuild to compile release version
@@ -61,5 +61,5 @@ jobs:
       - name: Upload Artifact - Release Binary
         uses: 'actions/upload-artifact@v2'
         with:
-          name: Binary-release
+          name: Binary-release-800x600
           path: './bin/Release/*.exe'
