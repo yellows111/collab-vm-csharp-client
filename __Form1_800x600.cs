@@ -676,6 +676,11 @@ namespace CollabClient
                 {
                     Send("turn", "0");
                     break;
+                }    				
+				case "!ss":
+                {
+                    System.Windows.Forms.Clipboard.SetImage(pictureBox1.Image);
+                    break;
                 }                
 				case "!kick":
                 {
