@@ -19,9 +19,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
-      - name: Install MSBuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
         
       - name: Download WebSocket-Sharp 1.0.3rc11
         # Fine, I'll play dirty.
@@ -53,7 +50,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
-    steps:      
+    steps:                
+      - name: Install MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        
       - name: Use MSBuild to compile debug version
         run: msbuild 
         
@@ -68,7 +68,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
-    steps:      
+    steps:                
+      - name: Install MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+             
       - name: Use MSBuild to compile release version
         run: msbuild 
         
