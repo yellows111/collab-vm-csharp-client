@@ -10,7 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  prebuild:
+  # This workflow contains a single job called "build"
+  build:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -24,7 +25,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
         
       - name: Download WebSocket-Sharp 1.0.3rc11
-        # Fine, I'll play dirty.
+        # Fine, i'll play dirty.
         uses: carlosperate/download-file-action@v1.0.3
         with:
           # URL of the file to download
@@ -48,12 +49,6 @@ jobs:
           copy websocket-sharp.dll bin\Release
           copy websocket-sharp.dll bin\Debug
       
-  build-debug:
-    needs: prebuild
-    # The type of runner that the job will run on
-    runs-on: windows-latest
-
-    steps:      
       - name: Use MSBuild to compile debug version
         run: msbuild 
         
@@ -63,14 +58,8 @@ jobs:
           name: Binary-debug
           path: './bin/Debug/*.exe'
 
-  build-release:    
-    needs: prebuild
-    # The type of runner that the job will run on
-    runs-on: windows-latest
-
-    steps:      
       - name: Use MSBuild to compile release version
-        run: msbuild 
+        run: msbuild -property:Configuration=Release
         
       - name: Upload Artifact - Release Binary
         uses: 'actions/upload-artifact@v2'
