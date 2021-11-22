@@ -2,7 +2,7 @@ name: Build CSharpClient
 
 on:
   push:
-    branches: [ master, 800x600 ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
