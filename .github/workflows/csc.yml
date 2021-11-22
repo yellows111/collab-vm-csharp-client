@@ -1,0 +1,65 @@
+name: Build CSharpClient
+
+on:
+  push:
+    branches: [ master, 800x600 ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
+      - name: Install MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        
+      - name: Download WebSocket-Sharp 1.0.3rc11
+        # Fine, I'll play dirty.
+        uses: carlosperate/download-file-action@v1.0.3
+        with:
+          file-url: 'https://www.nuget.org/api/v2/package/WebSocketSharp/1.0.3-rc11'
+          file-name: websocketsharp.nupkg
+          location: './tmp'
+      
+      - name: Extract WebSocket-Sharp with 7z
+        run: |
+          cd tmp
+          7z x websocketsharp.nupkg
+          copy .\lib\websocket-sharp.dll D:\a\collab-vm-csharp-client\collab-vm-csharp-client\
+        
+      - name: Copy WebSocket-Sharp to build folders
+        run: |
+          cd D:\a\collab-vm-csharp-client\collab-vm-csharp-client\
+          mkdir ./bin/Debug
+          mkdir ./bin/Release
+          copy websocket-sharp.dll bin\Release
+          copy websocket-sharp.dll bin\Debug
+      
+      - name: Use MSBuild to compile debug version
+        run: msbuild 
+        
+      - name: Upload Artifact - Debug Binary
+        uses: 'actions/upload-artifact@v2'
+        with:
+          name: Binary-debug
+          path: './bin/Debug/*.exe'
+
+      - name: Use MSBuild to compile release version
+        run: msbuild -property:Configuration=Release
+        
+      - name: Upload Artifact - Release Binary
+        uses: 'actions/upload-artifact@v2'
+        with:
+          name: Binary-release
+          path: './bin/Release/*.exe'
