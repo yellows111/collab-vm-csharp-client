@@ -37,6 +37,7 @@ jobs:
       
       - name: Extract WebSocket-Sharp with 7z
         run: |
+          cd tmp
           7z x websocketsharp.nupkg
           copy .\lib\websocket-sharp.dll ..\..
         
