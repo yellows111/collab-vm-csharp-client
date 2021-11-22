@@ -39,10 +39,11 @@ jobs:
         run: |
           cd tmp
           7z x websocketsharp.nupkg
-          copy .\lib\websocket-sharp.dll ..\..
+          copy .\lib\websocket-sharp.dll D:\a\collab-vm-csharp-client\collab-vm-csharp-client\
         
       - name: Copy WebSocket-Sharp to build folders
         run: |
+          cd D:\a\collab-vm-csharp-client\collab-vm-csharp-client\
           mkdir ./bin/Debug
           mkdir ./bin/Release
           copy websocket-sharp.dll bin\Release
