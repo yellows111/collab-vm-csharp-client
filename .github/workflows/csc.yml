@@ -24,11 +24,31 @@ jobs:
       - name: Install MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.1
         
-      - name: Install WebSocket-Sharp 1.0.3rc11
-        run: dotnet add package WebSocketSharp --version 1.0.3-rc11
+      - name: Download WebSocket-Sharp 1.0.3rc11
+        # Fine, i'll play dirty.
+        uses: carlosperate/download-file-action@v1.0.3
+        with:
+          # URL of the file to download
+          file-url: 'https://www.nuget.org/api/v2/package/WebSocketSharp/1.0.3-rc11'
+          # New filename to rename the downloaded file
+          file-name: websocketsharp.nupkg
+          # Path to download the file
+          location: './tmp' # optional, default is .
+      
+      - name: Extract WebSocket-Sharp with 7z
+        run: |
+          7z x websocketsharp.nupkg
+          copy .\lib\websocket-sharp.dll ..\..
+        
+      - name: Copy WebSocket-Sharp to build folders
+        run: |
+          mkdir ./bin/Debug
+          mkdir ./bin/Release
+          copy websocket-sharp.dll bin\Release
+          copy websocket-sharp.dll bin\Debug
       
       - name: Use MSBuild to compile debug version
-        run: msbuild
+        run: msbuild 
         
       - name: Upload Artifact - Debug Binary
         uses: 'actions/upload-artifact@v2'
