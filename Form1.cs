@@ -590,6 +590,12 @@ namespace CollabClient
                 Close();
 				Application.Exit();
             }
+            else if (e.Reason == "An error has occurred while connecting.")
+            {
+                MessageBox.Show("Failed to connect to the VM.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+				Application.Exit();
+            }
             else
             {
                 MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
