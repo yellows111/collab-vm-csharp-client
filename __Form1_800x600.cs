@@ -413,6 +413,7 @@ namespace CollabClient
 						g.Dispose();
 					    pictureBox1.Image = new Bitmap(Convert.ToInt32(screenx), Convert.ToInt32(screeny)); // trolled not making a new bitmapobject :trollface:, also mdkck10
 						g = Graphics.FromImage(pictureBox1.Image); */
+						//pictureBox1.Image = new Bitmap(800, 600);
                         scalex = screenx / pictureBox1.Width;
                         scaley = screeny / pictureBox1.Height;
                         pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -480,6 +481,7 @@ namespace CollabClient
                     if (args.Length > 3 && args[3] != username)
                     {
                         hasTurn = false;
+						LogChat($">{args[3]} now has the turn.");
                     }
 
                     if (args.Length > 2 && args[2] != "0")
@@ -503,6 +505,7 @@ namespace CollabClient
 
                     if (hasTurn)
                     {
+						LogChat(">You have the turn... do something!");
                         Console.WriteLine("You have the turn!");
                     }
 
@@ -719,6 +722,11 @@ namespace CollabClient
                 case "!debug list":
                 {
                     Send("list");
+                    break;
+                }                
+				case "!debug 800":
+                {
+                    pictureBox1.Image = new Bitmap(800, 600);
                     break;
                 }
                 case "!debug motd":
