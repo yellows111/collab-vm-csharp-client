@@ -171,6 +171,7 @@ namespace CollabClient
 			"Computernewb VM4",
 			"Computernewb VM5",
 			"Computernewb VM6",
+			"Computernewb VM7",
 			"Computernewb VM0",
 			"DarkOK Vista",
 			"Bob's Whistler 2257",

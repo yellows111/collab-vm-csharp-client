@@ -101,7 +101,7 @@ namespace CollabClient
 			        break;
 				case 15:
 					textBox.Text = "darkok.xyz:3037";
-			        textBox2.Text = "cvmi-windoze44364";
+			        textBox2.Text = "cvmi-windoze8064";
 					checksecure.Checked = false;
 					checkcompression.Checked = true;
 			        break;
