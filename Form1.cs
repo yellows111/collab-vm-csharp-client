@@ -222,9 +222,15 @@ namespace CollabClient
                             muteTimer.Interval = int.Parse(args[i + 1].Split(' ').Skip(5).Take(1).ToArray()[0]) * 1000;
                             muteTimer.Start();
                         }
+						else if (args[i] == "" && args[i + 1].StartsWith("You have been unmuted."))
+                        {
+							Invoke((MethodInvoker) delegate { textBox1.Enabled = true; });
+                        	return;
+                        }
                         else if (
                             args[1] == ""
                             && !args[i + 1].StartsWith("You have been muted")
+                            && !args[i + 1].StartsWith("You have been unmuted")
                             && !args[i + 1].StartsWith("The vote to")
                             && !args[i + 1].EndsWith("voted yes.")
                             && !args[i + 1].EndsWith("voted no.")
