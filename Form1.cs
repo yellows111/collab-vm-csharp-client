@@ -607,7 +607,6 @@ namespace CollabClient
 			}
 			else
 			{
-				MessageBox.Show(e.WasClean, "test non assert", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				if (e.WasClean && e.Code != (ushort) CloseStatusCode.Abnormal) {Console.WriteLine("Attempted to reconnect.");socket.Connect();}
 				else {MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);}
 			} // nested statements like these are ugly but if it reconnects its ok
