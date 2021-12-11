@@ -52,8 +52,8 @@ namespace CollabClient
 					checkcompression.Checked = true;
 					break;
 				case 7:
-					textBox.Text = "computernewb.com:443/collab-vm/vm6";
-					textBox2.Text = "vm6";
+					textBox.Text = "computernewb.com:443/collab-vm/vm7";
+					textBox2.Text = "vm7";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
