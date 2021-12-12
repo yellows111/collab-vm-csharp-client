@@ -106,9 +106,9 @@ namespace CollabClient
 					checkcompression.Checked = true;
 					break;
 				case 16:
-					textBox.Text = "darkok.xyz:3037";
+					textBox.Text = "cvm.ziad87.net:443/cvmws";
 					textBox2.Text = "cvmi-windoze8064";
-					checksecure.Checked = false;
+					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 			}
