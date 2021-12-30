@@ -378,16 +378,25 @@ namespace CollabClient
 
 					if (args[3] == "2")
 					{
-						users.Remove(args[2]); // fixes duping
-						LogChat($">{args[2]} authenticated as a adminstrator.");
+						if (args.Length > 4) {
+						LogChat($">{args[2]} is authenticated as a administrator.");
+						}
+						else {
+						users.Remove(args[2]); // fixes duping during mid-session joins
+						LogChat($">{args[2]} authenticated as a administrator.");
+						}
 					}
 
 					if (args[3] == "3")
 					{
-						users.Remove(args[2]); // fixes duping
+						if (args.Length > 4) {
+						LogChat($">{args[2]} is authenticated as a moderator.");
+						}
+						else {
+						users.Remove(args[2]); // fixes duping during mid-session joins
 						LogChat($">{args[2]} authenticated as a moderator.");
+						}
 					}
-
 					Invoke((MethodInvoker) delegate { label1.Text = "Users Online: " + users.Count; });
 
 					UpdateOnline();
@@ -607,6 +616,8 @@ namespace CollabClient
 			}
 			else
 			{
+				Console.WriteLine(e.WasClean);
+				users.Clear();
 				if (e.WasClean && e.Code != (ushort) CloseStatusCode.Abnormal) {Console.WriteLine("Attempted to reconnect.");socket.Connect();}
 				else {MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);}
 			} // nested statements like these are ugly but if it reconnects its ok
@@ -740,6 +751,16 @@ namespace CollabClient
 				{
 					string htmltest = "<h1>Please Wait...</h1>";
 					ViewHTML(ref htmltest);
+					break;
+				}
+				case "!reconnect":
+				{
+					socket.Connect();
+					break;
+				}
+				case "!disconnect":
+				{
+					socket.Close();
 					break;
 				}
 				default:

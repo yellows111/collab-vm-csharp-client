@@ -172,14 +172,9 @@ namespace CollabClient
 			"Computernewb VM5",
 			"Computernewb VM6",
 			"Computernewb VM7",
+			"Computernewb VM8",
 			"Computernewb VM0",
 			"DarkOK Vista",
-			"Bob's Whistler 2257",
-			"Bob's Whistler 2296",
-			"Bob's Whistler 2419",
-			"Bob's Whistler 2430",
-			"Bob's Whistler 2463",
-			"Bob's Whistler 2475",
 			"ziad87 Win 8064"});
 			this.cb.Location = new System.Drawing.Point(73, 44);
 			this.cb.Name = "cb";

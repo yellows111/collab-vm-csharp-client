@@ -56,56 +56,26 @@ namespace CollabClient
 					textBox2.Text = "vm7";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
-					break;
+					break;				
 				case 8:
+					textBox.Text = "computernewb.com:443/collab-vm/vm8";
+					textBox2.Text = "vm8";
+					checksecure.Checked = true;
+					checkcompression.Checked = true;
+					break;
+				case 9:
 					textBox.Text = "computernewb.com:443/collab-vm/vm0";
 					textBox2.Text = "vm0";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
-				case 9:
+				case 10:
 					textBox.Text = "home.darkok.xyz:6004";
 					textBox2.Text = "pissta";
 					checksecure.Checked = false;
 					checkcompression.Checked = true;
 					break;
-				case 10:
-					textBox.Text = "uvm.vmland.cf:2095";
-					textBox2.Text = "WindowsWhistler2257-BP";
-					checksecure.Checked = false;
-					checkcompression.Checked = true;
-					break;				
 				case 11:
-					textBox.Text = "uvm.vmland.cf:2095";
-					textBox2.Text = "WindowsWhistler2296-BP";
-					checksecure.Checked = false;
-					checkcompression.Checked = true;
-					break;				
-				case 12:
-					textBox.Text = "uvm.vmland.cf:2095";
-					textBox2.Text = "WindowsWhistler2419-BP";
-					checksecure.Checked = false;
-					checkcompression.Checked = true;
-					break;				
-				case 13:
-					textBox.Text = "uvm.vmland.cf:2095";
-					textBox2.Text = "WindowsWhistler2430-BP";
-					checksecure.Checked = false;
-					checkcompression.Checked = true;
-					break;				
-				case 14:
-					textBox.Text = "uvm.vmland.cf:2095";
-					textBox2.Text = "WindowsWhistler2463-BP";
-					checksecure.Checked = false;
-					checkcompression.Checked = true;
-					break;
-				case 15:
-					textBox.Text = "uvm.vmland.cf:2095";
-					textBox2.Text = "WindowsWhistler2475-BP";
-					checksecure.Checked = false;
-					checkcompression.Checked = true;
-					break;
-				case 16:
 					textBox.Text = "cvm.ziad87.net:443/cvmws";
 					textBox2.Text = "cvmi-windoze8064";
 					checksecure.Checked = true;
