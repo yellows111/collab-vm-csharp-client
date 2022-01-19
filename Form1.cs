@@ -375,7 +375,7 @@ namespace CollabClient
                     {
                         LogChat($">{args[2]} joined.");
                     }
-					Console.WriteLine(args.Length);
+					//Console.WriteLine(args.Length);
                     if (args[3] == "2")
                     {
 						if(args.Length < 5){users.Remove(args[2]);}; // fixes duping
