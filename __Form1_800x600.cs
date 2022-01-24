@@ -694,6 +694,7 @@ namespace CollabClient
                 } 				
 				case "!reconnect":
                 {
+                    users.Clear();
                     socket.Connect();
                     break;
                 }    				
