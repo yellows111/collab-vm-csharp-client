@@ -738,9 +738,12 @@ namespace CollabClient
                 }                
 				case "!debug 800":
                 {
+					Bitmap src = (Bitmap)pictureBox1.Image;
+					Bitmap buffer = src.Clone(new Rectangle(new Point(0,0), pictureBox1.Image.Size), pictureBox1.Image.PixelFormat);
                     pictureBox1.Image = new Bitmap(800, 600);
                     g.Dispose();
                     g = Graphics.FromImage(pictureBox1.Image);
+					g.DrawImage(buffer, 0, 0);
                     break;
                 }
                 case "!debug motd":
