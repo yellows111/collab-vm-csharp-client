@@ -739,6 +739,8 @@ namespace CollabClient
 				case "!debug 800":
                 {
                     pictureBox1.Image = new Bitmap(800, 600);
+                    g.Dispose();
+                    g = Graphics.FromImage(pictureBox1.Image);
                     break;
                 }
                 case "!debug motd":
