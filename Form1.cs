@@ -81,8 +81,8 @@ namespace CollabClient
         };
 
         private int turntime;
-        private const double screenx = 1024d;
-        private const double screeny = 768d;
+        private double screenx = 1024d;
+        private double screeny = 768d;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -413,8 +413,14 @@ namespace CollabClient
                     {
                         if (args[1] != "0") return;
 						Console.WriteLine("size: " + args[2] + "x" + args[3] + ", type" + args[1]);
-                        //int screenx = Int32.Parse(args[2]);
-                        //int screeny = Int32.Parse(args[3]);
+						Bitmap src = (Bitmap)pictureBox1.Image;
+						Bitmap buffer = src.Clone(new Rectangle(new Point(0,0), pictureBox1.Image.Size), pictureBox1.Image.PixelFormat);
+						pictureBox1.Image = new Bitmap(Int32.Parse(args[2]), Int32.Parse(args[3]));
+						g.Dispose();
+						g = Graphics.FromImage(pictureBox1.Image);
+						g.DrawImage(buffer, 0, 0);
+                        screenx = Double.Parse(args[2]);
+                        screeny = Double.Parse(args[3]);
                         /* 	rem this when safe	pictureBox1.Image.Dispose();
 						g.Dispose();
 					    pictureBox1.Image = new Bitmap(Convert.ToInt32(screenx), Convert.ToInt32(screeny)); // trolled not making a new bitmapobject :trollface:, also mdkck10
