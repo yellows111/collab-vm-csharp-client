@@ -214,9 +214,12 @@ namespace CollabClient
                         {
                             if (args[i + 1] == "You have been muted.")
                             {
-                                Invoke((MethodInvoker) delegate { textBox1.Enabled = false; });
-                                return;
-                            }
+								Invoke((MethodInvoker) delegate { textBox1.Enabled = false; });
+								LogChat(args[i] + (args[i] != "" ? "▸ " : "") + args[i + 1]);
+								richTextBox1.SelectionStart = richTextBox1.Text.Length;
+								richTextBox1.ScrollToCaret();
+								return;
+							}
 
                             Invoke((MethodInvoker) delegate { textBox1.Enabled = false; });
                             muteTimer.Interval = int.Parse(args[i + 1].Split(' ').Skip(5).Take(1).ToArray()[0]) * 1000;
@@ -225,7 +228,10 @@ namespace CollabClient
 						else if (args[i] == "" && args[i + 1].StartsWith("You have been unmuted."))
                         {
 							Invoke((MethodInvoker) delegate { textBox1.Enabled = true; });
-                        	return;
+							LogChat(args[i] + (args[i] != "" ? "▸ " : "") + args[i + 1]);
+							richTextBox1.SelectionStart = richTextBox1.Text.Length;
+							richTextBox1.ScrollToCaret();
+							return;
                         }
                         else if (
                             args[1] == ""
@@ -732,7 +738,7 @@ namespace CollabClient
 					ChangeUsername raw = new ChangeUsername("admin command to exec (5.admin,$input;)");
 					if (raw.ShowDialog() == DialogResult.OK)
 					{
-						Console.WriteLine("Sending:","5.admin,"+raw.nick+";");
+						Console.WriteLine("Sending: "+"5.admin,"+raw.nick+";");
 						socket.Send("5.admin,"+raw.nick+";");
 					}
                     break;
