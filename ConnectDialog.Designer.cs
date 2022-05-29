@@ -173,9 +173,7 @@ namespace CollabClient
 			"Computernewb VM6",
 			"Computernewb VM7",
 			"Computernewb VM8",
-			"Computernewb VM0",
-			"DarkOK Vista",
-			"ziad87 Win 8064"});
+			"Computernewb VM0b0t"});
 			this.cb.Location = new System.Drawing.Point(73, 44);
 			this.cb.Name = "cb";
 			this.cb.Size = new System.Drawing.Size(141, 21);
@@ -194,6 +192,7 @@ namespace CollabClient
 			this.checksecure.Text = "Connect using TLS 1.2";
 			this.checksecure.Checked = false;
 			this.checksecure.UseVisualStyleBackColor = false;
+			this.checksecure.Click += new System.EventHandler(this.SecureCheck_Click);
 			//
 			// checkcompression
 			//
