@@ -8,6 +8,7 @@
 		public static bool vmdiscovery = false;
 		public static bool isSecure = false;
 		public static bool isCompressed = true;
+		public static bool autoReconnect = false;
 		public static ushort GetKeycodeByName(System.Windows.Forms.KeyEventArgs Keyevent, ushort fallback) {
 			System.Windows.Forms.Keys Keyname = Keyevent.KeyCode;
 			string keystring = Keyname.ToString();

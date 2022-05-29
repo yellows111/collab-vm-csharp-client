@@ -65,19 +65,7 @@ namespace CollabClient
 					break;
 				case 9:
 					textBox.Text = "computernewb.com:443/collab-vm/vm0";
-					textBox2.Text = "vm0";
-					checksecure.Checked = true;
-					checkcompression.Checked = true;
-					break;
-				case 10:
-					textBox.Text = "home.darkok.xyz:6004";
-					textBox2.Text = "pissta";
-					checksecure.Checked = false;
-					checkcompression.Checked = true;
-					break;
-				case 11:
-					textBox.Text = "cvm.ziad87.net:443/cvmws";
-					textBox2.Text = "cvmi-windoze8064";
+					textBox2.Text = "vm0b0t";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
@@ -98,6 +86,25 @@ namespace CollabClient
 		private void CancelButton_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
+		}
+		private void SecureCheck_Click(object sender, EventArgs e)
+		{
+			try {
+				string[] seperators = { ":6004", ":443" }; // Thought it was gonna be :80 huh?
+				string[] swapPorts = textBox.Text.Split(seperators, System.StringSplitOptions.RemoveEmptyEntries);
+				if (checksecure.Checked)  
+				{  
+					textBox.Text = ($"{swapPorts[0]}:443{swapPorts[1]}"); 
+				}  
+				else  
+				{
+					textBox.Text = ($"{swapPorts[0]}:6004{swapPorts[1]}"); 
+				}
+			}
+			catch(Exception err)
+			{
+				Console.WriteLine($"{err.Message}\n\tCannot convert a non-6004 IP to 443 or vice-versa.");
+			}
 		}
 	}
 }

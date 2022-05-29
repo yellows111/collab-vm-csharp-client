@@ -619,7 +619,20 @@ namespace CollabClient
             }
             else
             {
-                MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				if (Globals.autoReconnect == true)
+				{
+					LogChat(">You have been disconnected.");
+					LogChat(">Reconnecting in 5 seconds.");
+					users.Clear();
+					System.Threading.Thread.Sleep(5000); // "But it locks the UI thread!" I already know that.
+                    socket.Connect();
+					LogChat(">Attempting to reconnect...");
+				}
+				else 
+				{
+					LogChat(">TIP: Try '!reconnect' or '!autoreconnect yes'.");
+					MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
             }
         }
 
@@ -707,6 +720,7 @@ namespace CollabClient
 				case "!reconnect":
                 {
                     users.Clear();
+					LogChat(">Reconnecting...");
                     socket.Connect();
                     break;
                 }    				
@@ -762,6 +776,18 @@ namespace CollabClient
                 {
                     string htmltest = "<h1>Please Wait...</h1>";
                     ViewHTML(ref htmltest);
+                    break;
+                }
+                case "!autoreconnect yes":
+                {
+                    LogChat(">Auto-reconnect enabled.");
+					Globals.autoReconnect = true;
+                    break;
+                }
+                case "!autoreconnect no":
+                {
+					LogChat(">Auto-reconnect disabled.");
+                    Globals.autoReconnect = false;
                     break;
                 }
                 default:
