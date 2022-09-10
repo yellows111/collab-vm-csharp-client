@@ -51,7 +51,7 @@ namespace CollabClient
         }
 
         private bool pbfocus;
-        private long pboxRefresh;
+        private long pboxRefresh = 1000;
         private WebSocket socket;
         private Graphics g;
         private readonly System.Media.SoundPlayer notify = new System.Media.SoundPlayer(Properties.Resources.notify);
@@ -726,6 +726,7 @@ namespace CollabClient
                 }    				
 				case "!ss":
                 {
+					Invoke((MethodInvoker) delegate { pictureBox1.Refresh(); });
                     System.Windows.Forms.Clipboard.SetImage(pictureBox1.Image);
                     break;
                 }                
@@ -790,6 +791,17 @@ namespace CollabClient
                     Globals.autoReconnect = false;
                     break;
                 }
+				case "!tab":
+				{
+					Send("key", 0xff09, 1);
+					Send("key", 0xff09, 0);
+					break;
+				}
+				case "!refresh":
+				{
+					Invoke((MethodInvoker) delegate { pictureBox1.Refresh(); });
+					break;
+				}
                 default:
                 {
                     Send("chat", BoxText);
