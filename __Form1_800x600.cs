@@ -233,10 +233,20 @@ namespace CollabClient
 							richTextBox1.ScrollToCaret();
 							return;
                         }
+						// really? no nested condition support... OK then...
+						else if (args[i] == "" && args[i + 1].StartsWith("You are no longer muted."))
+                        {
+							Invoke((MethodInvoker) delegate { textBox1.Enabled = true; });
+							LogChat(args[i] + (args[i] != "" ? "▸ " : "") + args[i + 1]);
+							richTextBox1.SelectionStart = richTextBox1.Text.Length;
+							richTextBox1.ScrollToCaret();
+							return;
+                        }
                         else if (
                             args[1] == ""
                             && !args[i + 1].StartsWith("You have been muted")
                             && !args[i + 1].StartsWith("You have been unmuted")
+                            && !args[i + 1].StartsWith("You are no longer muted")
                             && !args[i + 1].StartsWith("The vote to")
                             && !args[i + 1].EndsWith("voted yes.")
                             && !args[i + 1].EndsWith("voted no.")
