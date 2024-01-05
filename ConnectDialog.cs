@@ -16,55 +16,55 @@ namespace CollabClient
 			switch (cb.SelectedIndex + 1)
 			{
 				case 1:
-					textBox.Text = "computernewb.com:443/collab-vm/vm1";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm1";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 				case 2:
-					textBox.Text = "computernewb.com:443/collab-vm/vm2";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm2";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 				case 3:
-					textBox.Text = "computernewb.com:443/collab-vm/vm3";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm3";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 				case 4:
-					textBox.Text = "computernewb.com:443/collab-vm/vm4";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm4";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 				case 5:
-					textBox.Text = "computernewb.com:443/collab-vm/vm5";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm5";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 				case 6:
-					textBox.Text = "computernewb.com:443/collab-vm/vm6";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm6";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 				case 7:
-					textBox.Text = "computernewb.com:443/collab-vm/vm7";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm7";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;				
 				case 8:
-					textBox.Text = "computernewb.com:443/collab-vm/vm8";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm8";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;
 					break;
 				case 9:
-					textBox.Text = "computernewb.com:443/collab-vm/vm0";
+					textBox.Text = "computernewb.com:443/collab-vm/mainvms";
 					textBox2.Text = "vm0b0t";
 					checksecure.Checked = true;
 					checkcompression.Checked = true;

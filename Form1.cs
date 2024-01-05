@@ -51,7 +51,7 @@ namespace CollabClient
         }
 
         private bool pbfocus;
-        private long pboxRefresh = 1000;
+        //private long pboxRefresh = 33;
         private WebSocket socket;
         private Graphics g;
         private readonly System.Media.SoundPlayer notify = new System.Media.SoundPlayer(Properties.Resources.notify);
@@ -99,10 +99,11 @@ namespace CollabClient
             pictureBox1.Image = new Bitmap(1024, 768);
             g = Graphics.FromImage(pictureBox1.Image);
             Text = "CollabVM .NET Client: " + Globals.vmip + "#" + Globals.vmname;
-			string wsprefix = Globals.isSecure ? "wss" : "ws";
-            socket = new WebSocket(wsprefix+"://" + Globals.vmip, "guacamole") {Origin = "http://" + Globals.vmip.Split(':')[0]};
+			string protoPrefix = Globals.isSecure ? "s" : "";
+            socket = new WebSocket("ws"+protoPrefix+"://" + Globals.vmip, "guacamole") {Origin = "http"+protoPrefix+"://" + Globals.vmip.Split(':')[0]};
             if (Globals.isSecure){
 				socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+				//socket.SslConfiguration.EnabledSslProtocols = (System.Security.Authentication.SslProtocols)0x00003000;
 			}
 			socket.OnClose += Socket_OnClose;
             socket.OnOpen += Socket_OnOpen;
@@ -302,14 +303,15 @@ namespace CollabClient
                         ms.Dispose();
                         //pictureBox1.Invalidate(new Rectangle(point, img.Size));
                         //pictureBox1.Invoke((Action)(() => pictureBox1.Update()));
-                        if (pboxRefresh < DateTime.UtcNow.Ticks)
+                        /*if (pboxRefresh < DateTime.UtcNow.Ticks)
                         {
                             Invoke((MethodInvoker) delegate { pictureBox1.Refresh(); });
                             pboxRefresh =
                                 DateTime.UtcNow.Ticks +
                                 TimeSpan.FromMilliseconds(1000 / 60)
                                     .Ticks; //limit fps so we won't unnecessarily draw more than x fps and waste cpu
-                        }
+                        }*/
+						Invoke((MethodInvoker) delegate { pictureBox1.Refresh(); });
 
                         //pictureBox1.Update();
                         //img?.Dispose();
@@ -506,7 +508,7 @@ namespace CollabClient
                         turntime = 1;
                     }
 
-                    if (args.Length > 3 && args[3] != username)
+                    if (args.Length > 3 && args[3] != username && Globals.disableTurnMessages == false)
                     {
                         hasTurn = false;
 						LogChat($">{args[3]} now has the turn.");
@@ -515,7 +517,13 @@ namespace CollabClient
                     if (args.Length > 2 && args[2] != "0")
                     {
                         hasTurn = args[3] == username;
-                        var ms = int.Parse(args[1]);
+						int ms = 0;
+						try {
+                        ms = int.Parse(args[1]);
+						}
+						catch(Exception err) {
+							Console.WriteLine("{0}: [{1}]", err.Message, string.Join(", ", args));
+						}
                         /*
                         turn | 17999 | 1 | DotNetClient
                         turn | 3350 | 2 | DotNetClient | kubapolish
@@ -629,6 +637,9 @@ namespace CollabClient
             }
             else
             {
+				g.FillRectangle(new SolidBrush(Color.Black),0,0,pictureBox1.Width,pictureBox1.Height);
+				pictureBox1.Refresh();
+				
 				if (Globals.autoReconnect == true)
 				{
 					LogChat(">You have been disconnected.");
@@ -801,10 +812,42 @@ namespace CollabClient
                     Globals.autoReconnect = false;
                     break;
                 }
+                case "!turnmsg off":
+                {
+                    LogChat(">No longer suppressing turn messages.");
+					Globals.disableTurnMessages = false;
+                    break;
+                }
+                case "!turnmsg on":
+                {
+					LogChat(">Suppressing turn messages.");
+                    Globals.disableTurnMessages = true;
+                    break;
+                }
 				case "!tab":
 				{
 					Send("key", 0xff09, 1);
 					Send("key", 0xff09, 0);
+					break;
+				}
+				case "!cad":
+				{
+					Send("key", 0xffe3, 1);
+					Send("key", 0xffe9, 1);
+					Send("key", 0xffff, 1);
+					Send("key", 0xffe3, 0);
+					Send("key", 0xffe9, 0);
+					Send("key", 0xffff, 0);
+					break;
+				}
+				case "!taskmgr":
+				{
+					Send("key", 0xffe3, 1);
+					Send("key", 0xffe1, 1);
+					Send("key", 0xff1b, 1);
+					Send("key", 0xffe3, 0);
+					Send("key", 0xffe1, 0);
+					Send("key", 0xff1b, 0);
 					break;
 				}
 				case "!refresh":
