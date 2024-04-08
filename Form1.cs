@@ -6,7 +6,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Timers;
-using WebSocketSharp;
 using Timer = System.Timers.Timer;
 using System.Net;
 using Newtonsoft.Json;
@@ -109,19 +108,22 @@ namespace CollabClient
             g = Graphics.FromImage(pictureBox1.Image);
             Text = "CollabVM .NET Client: " + Globals.vmip + "#" + Globals.vmname;
 			string protoPrefix = Globals.isSecure ? "s" : "";
-            socket = new WebSocket("ws"+protoPrefix+"://" + Globals.vmip, "guacamole") {Origin = "http"+protoPrefix+"://" + Globals.vmip.Split(':')[0]};
+            socket = new WebSocket("ws" + protoPrefix + "://" + Globals.vmip, "guacamole");
+            socket.Headers.Add("Origin", "http" + protoPrefix + "://" + Globals.vmip.Split(':')[0]);
             if (Globals.isSecure){
-				socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 				//socket.SslConfiguration.EnabledSslProtocols = (System.Security.Authentication.SslProtocols)0x00003000;
 			}
 			socket.OnClose += Socket_OnClose;
             socket.OnOpen += Socket_OnOpen;
-            socket.OnMessage += Socket_OnMessage;
-			if (Globals.isCompressed){
+            socket.OnTextMessage += Socket_OnMessage;
+            // ClientWebSocket does not support deflate unfortunately.
+            // However i fail to see that as a loss since it's considered a security vulnerability
+			/*if (Globals.isCompressed){
 				socket.Compression = CompressionMethod.Deflate;
 			} else {
 				socket.Compression = CompressionMethod.None;
-			}
+			}*/
             //pictureBox1.Image = Properties.Resources.Loading;
             //pictureBox1.Refresh();
             socket.Connect();
@@ -218,9 +220,9 @@ namespace CollabClient
             richTextBox1.Invoke((MethodInvoker) delegate { richTextBox1.AppendText(text + Environment.NewLine); });
         }
 
-        private void Socket_OnMessage(object sender, MessageEventArgs e)
+        private void Socket_OnMessage(object sender, string msg)
         {
-            string[] args = DecodeGuac(e.Data);
+            string[] args = DecodeGuac(msg);
             switch (args[0])
             {
                 case "chat":
@@ -289,7 +291,7 @@ namespace CollabClient
                 case "nop":
                 {
                     Send("nop");
-                    socket.Ping();
+                    //socket.Ping();
                     break;
                 }
                 case "png":
@@ -672,15 +674,9 @@ namespace CollabClient
             t.Enabled = true;
         }
 
-        private void Socket_OnClose(object sender, CloseEventArgs e)
+        private void Socket_OnClose(object sender, WebSocketCloseEventArgs e)
         {
-            if (e.Reason == "An exception has occurred while connecting.")
-            {
-                MessageBox.Show("Failed to connect to the VM.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-				Application.Exit();
-            }
-            else if (e.Reason == "An error has occurred while connecting.")
+            if (e.Reason == WebSocketCloseReason.Error)
             {
                 MessageBox.Show("Failed to connect to the VM.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
@@ -703,7 +699,7 @@ namespace CollabClient
 				else 
 				{
 					LogChat(">TIP: Try '!reconnect' or '!autoreconnect yes'.");
-					if (!string.IsNullOrEmpty(e.Reason)) MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					if (!string.IsNullOrEmpty(e.Message)) MessageBox.Show(e.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
             }
         }
@@ -795,7 +791,13 @@ namespace CollabClient
 					LogChat(">Reconnecting...");
                     socket.Connect();
                     break;
-                }    				
+                }
+                case "!disconnect":
+                {
+                    users.Clear();
+                    socket.Close();
+                    break;
+                }
 				case "!ss":
                 {
 					Invoke((MethodInvoker) delegate { pictureBox1.Refresh(); });
