@@ -50,7 +50,7 @@
             this.ClientSize = new System.Drawing.Size(361, 534);
             this.Controls.Add(this.webBrowser1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LoginForm";
