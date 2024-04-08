@@ -15,3 +15,7 @@
 *_LOCAL_*
 *_REMOTE_*
 *_BASE_*
+
+.vs/
+*.suo
+packages/
