@@ -8,6 +8,9 @@ using System.IO;
 using System.Timers;
 using WebSocketSharp;
 using Timer = System.Timers.Timer;
+using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CollabClient
 {
@@ -84,6 +87,13 @@ namespace CollabClient
         private double screenx = 1024d;
         private double screeny = 768d;
 
+        private bool usesAccountAuth = false;
+        private string authServer = null;
+        private string hcaptchakey = null;
+        private JObject tokens;
+        private bool loggedIn = false;
+        
+
         private void Form1_Load(object sender, EventArgs e)
         {
            //pictureBox1.Refresh();
@@ -156,6 +166,13 @@ namespace CollabClient
                     //Send(Console.ReadLine().Split('|'));
                 };
             }); */
+
+            // load tokens
+            if (File.Exists("tokens.json"))
+            {
+                var raw = File.ReadAllText("tokens.json");
+                tokens = JObject.Parse(raw);
+            } else tokens = new JObject();
         }
 
         private void SecondTick_Elapsed(object sender, ElapsedEventArgs e)
@@ -394,6 +411,10 @@ namespace CollabClient
                         LogChat($">{args[2]} joined.");
                     }
 					//Console.WriteLine(args.Length);
+                    if (args[3] == "1")
+                        {
+                            LogChat($">{args[2]} logged into their account.");
+                        }
                     if (args[3] == "2")
                     {
 						if(args.Length < 5){users.Remove(args[2]);}; // fixes duping
@@ -593,6 +614,37 @@ namespace CollabClient
 					}
                     break;
 				}
+                case "auth":
+                {
+                    usesAccountAuth = true;
+                    authServer = args[1];
+                    button3.Text = "Login";
+                    Console.WriteLine($"VM uses account auth. Auth server: {authServer}");
+                    var wc = new WebClient();
+                    var jsonraw = wc.DownloadString(authServer + "/api/v1/info");
+                    var info = JsonConvert.DeserializeObject<AuthServerInformation>(jsonraw);
+                    if (info.hcaptcha.required) hcaptchakey = info.hcaptcha.siteKey;
+                    string token = (string)tokens.GetValue(new Uri(authServer).Host);
+                    if (token != null) {
+                        this.Send("login", token);
+                    }
+                    break;
+                }
+                case "login":
+                {
+                    if (args[1] == "1")
+                    {
+                        button3.Text = "Log out";
+                        loggedIn = true;
+                    }
+                    else
+                    {
+                        tokens.Remove(new Uri(authServer).Host);
+                        File.WriteAllText("tokens.json", JsonConvert.SerializeObject(tokens));
+                        MessageBox.Show(args[2], "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    break;
+                }
                 default:
                 {
                     string a = "";
@@ -652,7 +704,7 @@ namespace CollabClient
 				else 
 				{
 					LogChat(">TIP: Try '!reconnect' or '!autoreconnect yes'.");
-					MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					if (!string.IsNullOrEmpty(e.Reason)) MessageBox.Show(e.Reason, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
             }
         }
@@ -1079,6 +1131,38 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            if (usesAccountAuth)
+            {
+                if (loggedIn)
+                {
+                    var wc = new WebClient();
+                    wc.Headers["Content-Type"] = "application/json";
+                    wc.UploadString(authServer + "/api/v1/logout", JsonConvert.SerializeObject(new LogoutPayload {
+                        token = (string)tokens.GetValue(new Uri(authServer).Host)
+                    }));
+                    tokens.Remove(new Uri(authServer).Host);
+                    File.WriteAllText("tokens.json", JsonConvert.SerializeObject(tokens));
+                    button3.Text = "Login";
+                    authServer = null;
+                    usesAccountAuth = false;
+                    hcaptchakey = null;
+                    loggedIn = false;
+                    var arc = Globals.autoReconnect;
+                    Globals.autoReconnect = false;
+                    socket.Close();
+                    users.Clear();
+                    socket.Connect();
+                    Globals.autoReconnect = arc;
+                    return;
+                }
+                var form = new LoginForm(authServer, hcaptchakey);
+                form.ShowDialog();
+                if (!form.finished) return;
+                this.tokens.Add(new Uri(authServer).Host, form.response.token);
+                File.WriteAllText("tokens.json", JsonConvert.SerializeObject(tokens));
+                this.Send("login", form.response.token);
+                return;
+            }
             ChangeUsername ass = new ChangeUsername(username);
             if (ass.ShowDialog() == DialogResult.OK)
             {
@@ -1087,6 +1171,7 @@ private void pictureBox1_SizeChanged(object sender, EventArgs e)
         }        
 		private void Label3_Click(object sender, EventArgs e)
         {
+            if (usesAccountAuth) return;
             ChangeUsername login = new ChangeUsername("Give Me The: Password");
             if (login.ShowDialog() == DialogResult.OK)
             {
