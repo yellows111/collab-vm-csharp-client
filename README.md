@@ -9,5 +9,3 @@ yes the key handler is awful
 i know many of these problems
 
 originally by someone who doesn't want his name shared but has gladly agreed for me to repost this
-
-oh yeah you'll probably need a copy of [websocket-sharp](https://github.com/sta/websocket-sharp)
