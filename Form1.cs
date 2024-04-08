@@ -92,7 +92,6 @@ namespace CollabClient
         private string hcaptchakey = null;
         private JObject tokens;
         private bool loggedIn = false;
-        
 
         private void Form1_Load(object sender, EventArgs e)
         {
