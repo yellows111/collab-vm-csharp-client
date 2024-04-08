@@ -19,55 +19,46 @@ namespace CollabClient
                     textBox.Text = "computernewb.com:443/collab-vm/vm1";
 					textBox2.Text = "vm1";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 				case 2:
                     textBox.Text = "computernewb.com:443/collab-vm/vm2";
 					textBox2.Text = "vm2";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 				case 3:
 					textBox.Text = "computernewb.com:443/collab-vm/vm3";
 					textBox2.Text = "vm3";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 				case 4:
 					textBox.Text = "computernewb.com:443/collab-vm/vm4";
 					textBox2.Text = "vm4";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 				case 5:
 					textBox.Text = "computernewb.com:443/collab-vm/vm5";
 					textBox2.Text = "vm5";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 				case 6:
 					textBox.Text = "computernewb.com:443/collab-vm/vm6";
 					textBox2.Text = "vm6";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 				case 7:
 					textBox.Text = "computernewb.com:443/collab-vm/vm7";
 					textBox2.Text = "vm7";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;				
 				case 8:
 					textBox.Text = "computernewb.com:443/collab-vm/vm8";
 					textBox2.Text = "vm8";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 				case 9:
 					textBox.Text = "computernewb.com:443/collab-vm/vm0";
 					textBox2.Text = "vm0b0t";
 					checksecure.Checked = true;
-					checkcompression.Checked = true;
 					break;
 			}
 		}
@@ -78,7 +69,6 @@ namespace CollabClient
 			Globals.vmname = textBox2.Text;
 			Globals.vmusername = textBox3.Text;
 			Globals.isSecure = checksecure.Checked;
-			Globals.isCompressed = checkcompression.Checked;
 			Hide();
 			new Form1().Show();
 		}
