@@ -33,6 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
+	<!-- we don't need to care about async here -->
+	<NoWarn>CS4014</NoWarn>
     <ApplicationIcon>cvm.ico</ApplicationIcon>
     <StartupObject />
   </PropertyGroup>

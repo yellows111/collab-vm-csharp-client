@@ -402,7 +402,9 @@ namespace CollabClient
                     List<string> u = new List<string>();
                     for (int i = 2; i < args.Length; i += 2)
                     {
-                        u.Add(args[i]);
+						if (!users.Contains(args[i])) {
+							u.Add(args[i]);
+						}
                     }
 
                     Invoke((MethodInvoker) delegate { users.AddRange(u); });
@@ -411,20 +413,19 @@ namespace CollabClient
                     {
                         LogChat($">{args[2]} joined.");
                     }
-					//Console.WriteLine(args.Length);
+					// this should probably be a switch
                     if (args[3] == "1")
-                        {
-                            LogChat($">{args[2]} logged into their account.");
-                        }
+                    {
+                    	LogChat($">{args[2]} logged into their account.");
+                    }
+
                     if (args[3] == "2")
                     {
-						if(args.Length < 5){users.Remove(args[2]);}; // fixes duping
                         LogChat($">{args[2]} authenticated as a adminstrator.");
                     }
 
                     if (args[3] == "3")
                     {
-						if(args.Length < 5){users.Remove(args[2]);}; // fixes duping
                         LogChat($">{args[2]} authenticated as a moderator.");
                     }
 
