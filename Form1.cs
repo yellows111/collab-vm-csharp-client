@@ -91,6 +91,7 @@ namespace CollabClient
         private string hcaptchakey = null;
         private JObject tokens;
         private bool loggedIn = false;
+		private bool wasConnectedSuccessfully = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -598,6 +599,7 @@ namespace CollabClient
 						
 						case "1": {
 							Console.WriteLine("Connected successfully to "+Globals.vmname+" on "+Globals.vmip+".");
+							wasConnectedSuccessfully = true;
 							break;
 						}
 						
@@ -677,12 +679,16 @@ namespace CollabClient
 
         private void Socket_OnClose(object sender, WebSocketCloseEventArgs e)
         {
-            if (e.Reason == WebSocketCloseReason.Error)
-            {
-                MessageBox.Show("Failed to connect to the VM.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-				Application.Exit();
-            }
+            
+			if(wasConnectedSuccessfully == false ) {
+				if (e.Reason == WebSocketCloseReason.Error)
+				{
+					MessageBox.Show("Failed to connect to the VM.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Close();
+					Application.Exit();
+				}
+				// if we're here, we're failed for some reason in pre-connect?
+			}
             else
             {
 				g.FillRectangle(new SolidBrush(Color.Black),0,0,pictureBox1.Width,pictureBox1.Height);
